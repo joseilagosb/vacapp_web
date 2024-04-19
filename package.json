@@ -10,7 +10,7 @@
     "generate-graphql": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
-    "cookies-next": "^4.1.1",
+    "@urql/exchange-graphcache": "^7.0.1",
     "graphql": "^16.8.1",
     "jwt-decode": "^4.0.0",
     "mapbox-gl": "^3.3.0",

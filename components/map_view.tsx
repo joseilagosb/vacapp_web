@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
-
-import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_TOKEN!; 
 
-type MapViewProps = {}
+type MapViewProps = {
+}
 
-const MapView = (props: MapViewProps) => {
+const MapView = ({}: MapViewProps) => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
 
@@ -19,16 +19,14 @@ const MapView = (props: MapViewProps) => {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [-70.9, 42.35],
-      zoom: 9
+      style: 'mapbox://styles/joseilagosb/cklstirgf19x717mfjj0mltjx',
+      center: [-73.131226, -40.577305],
+      zoom: 12
     });
   }, []);
 
   return (
-    <div>
-      <div ref={mapContainer} className="map-container"  />
-    </div>
+    <div ref={mapContainer} className="map-container"  />
   );
 }
 

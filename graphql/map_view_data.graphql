@@ -12,6 +12,7 @@ query MapViewData {
       service_name
     }
     coordinates {
+      id
       latitude
       longitude
     }
@@ -28,6 +29,7 @@ query MapViewData {
     id
     area_name
     coordinates {
+      id
       latitude
       longitude
     }

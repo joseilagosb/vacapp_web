@@ -1,11 +1,16 @@
 // lib/urql.ts
 import { cookies } from "next/headers";
-import { Client, cacheExchange, createClient, fetchExchange } from "urql/core";
-
+import { Client, createClient, cacheExchange, fetchExchange, ssrExchange } from "urql/core";
 let _client: Client | null = null;
 
 export const getUrqlClient = () => {
   if (!_client) {
+    const isServerSide = typeof window === "undefined";
+
+    const ssr = ssrExchange({
+      isClient: !isServerSide,
+      initialState: !isServerSide ? window.__URQL_DATA__ : undefined,
+    });
     _client = createClient({
       url: process.env.GRAPHQL_API_URL,
       fetchOptions: () => {
@@ -17,7 +22,7 @@ export const getUrqlClient = () => {
         };
       },
       requestPolicy: "cache-and-network",
-      exchanges: [cacheExchange, fetchExchange],
+      exchanges: [cacheExchange, ssr, fetchExchange],
     });
   }
   const client = _client;

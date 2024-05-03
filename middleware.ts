@@ -1,9 +1,10 @@
-import { LoginDocument, LoginMutation, LoginMutationVariables } from "@/graphql/operations";
 import { jwtDecode } from "jwt-decode";
 import { NextResponse } from "next/server";
 
 import { login } from "./services/api";
 
+// Antes de ejecutar el código de servidor verificamos la existencia y vigencia del token de autenticación
+// De ser necesario, se volverá a iniciar sesión con la backend API
 export async function middleware() {
   const response = NextResponse.next();
 
@@ -21,7 +22,10 @@ export async function middleware() {
 
   if (error) {
     return Response.json(
-      { success: false, message: "Ocurrió un error al iniciar sesión, intente otra vez recargando la página" },
+      {
+        success: false,
+        message: "Ocurrió un error al iniciar sesión, intente otra vez recargando la página",
+      },
       { status: 401 }
     );
   }

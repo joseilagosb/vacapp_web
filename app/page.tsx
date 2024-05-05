@@ -1,8 +1,13 @@
 import MapView from "@/components/map_view";
-import { getMapViewData } from "@/services/api";
+import { MapViewDataDocument, MapViewDataQuery, MapViewDataQueryVariables } from "@/graphql/operations";
+import { getUrqlClient } from "@/services/urql";
+import { registerUrql } from "@urql/next/rsc";
+
+const { getClient } = registerUrql(getUrqlClient);
 
 export default async function Home() {
-  const { data: mapViewData, error } = await getMapViewData();
+  const { data: mapViewData, error } = await getClient().query<MapViewDataQuery, MapViewDataQueryVariables>
+    (MapViewDataDocument, {});
   
   if (error) {
     throw new Error(error.message);

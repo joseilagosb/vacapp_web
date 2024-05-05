@@ -17,6 +17,8 @@ COPY components ./components
 COPY graphql ./graphql
 COPY services ./services
 COPY public ./public
+COPY styles ./styles
+COPY middleware.ts .
 COPY next.config.mjs .
 COPY tsconfig.json .
 

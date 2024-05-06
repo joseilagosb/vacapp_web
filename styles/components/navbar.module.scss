@@ -1,11 +1,15 @@
-.navbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 50px;
-  background-color: orange;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@tailwind components;
+
+@layer components {
+  .navbar {
+    @apply sticky top-0 w-full py-2 bg-primary z-30 flex gap-2 items-center justify-center;
+
+    .title {
+      @apply uppercase tracking-widest;
+    }
+
+    .themeButton {
+      @apply p-4 rounded-2xl bg-secondary;
+    }
+  }
 }

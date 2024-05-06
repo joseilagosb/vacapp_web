@@ -1,5 +1,5 @@
 import { createClient, cacheExchange, fetchExchange } from "urql/core";
-import { appendTokenToHeaders } from "./token";
+import { appendTokenToHeaders } from "../utils/token";
 
 export const getUrqlClient = () => {
   return createClient({

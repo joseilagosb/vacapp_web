@@ -21,6 +21,8 @@ COPY styles ./styles
 COPY middleware.ts .
 COPY next.config.mjs .
 COPY tsconfig.json .
+COPY graphql.config.yml .
+COPY postcss.config.mjs .
 
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line to disable telemetry at run time

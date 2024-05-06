@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
-
-import { LoginDocument, LoginMutation, LoginMutationVariables } from "./graphql/operations";
-
-import { getUrqlClient } from "./services/urql";
-import { generateNewTokenCookie } from "./utils/token";
-
 import { cookies } from "next/headers";
+
+import { generateNewTokenCookie } from "./utils/token";
+import { loginMutation } from "./graphql/login/login";
 
 // Antes de ejecutar el código de servidor verificamos la existencia y vigencia del token de autenticación
 // De ser necesario, se volverá a iniciar sesión con la backend API
@@ -19,13 +16,10 @@ export async function middleware() {
   }
 
   // En caso contrario, iniciamos sesión haciendo una mutación a la API endpoint
-  const { data, error } = await getUrqlClient().mutation<LoginMutation, LoginMutationVariables>(
-    LoginDocument,
-    {
-      username: process.env.WEB_APP_USERNAME,
-      password: process.env.WEB_APP_PASSWORD,
-    }
-  );
+  const { data, error } = await loginMutation({
+    username: process.env.WEB_APP_USERNAME,
+    password: process.env.WEB_APP_PASSWORD,
+  });
 
   if (error) {
     return Response.json(

@@ -1,6 +1,6 @@
-import * as Types from "../types";
+import { Exact } from "../utils.types";
 
-export type MapViewDataQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type MapViewDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MapViewDataQuery = {
   __typename?: "Query";
@@ -21,13 +21,6 @@ export type MapViewDataQuery = {
       __typename?: "Coordinate";
       latitude?: any | null;
       longitude?: any | null;
-    } | null> | null;
-    place_working_days?: Array<{
-      __typename?: "PlaceWorkingDay";
-      id: string;
-      day_of_week?: number | null;
-      opening_time?: string | null;
-      closing_time?: string | null;
     } | null> | null;
   } | null> | null;
   allAreas?: Array<{

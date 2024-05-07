@@ -1,11 +1,5 @@
-export enum Theme {
-  Light = "light",
-  Dark = "dark",
-}
-
-type MapStylesType = {
-  [key in Theme as string]: string;
-};
+import { Theme } from "@/ts/enums/constants.enums";
+import { MapStylesType } from "@/ts/types/constants.types";
 
 export const MapStyles: MapStylesType = {
   [Theme.Light]: "mapbox://styles/joseilagosb/clv5vf5s602q701nrgkjp74kc",

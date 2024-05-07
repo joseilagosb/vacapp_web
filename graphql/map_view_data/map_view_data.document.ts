@@ -20,12 +20,6 @@ export const MapViewDataDocument = gql`
       }
       surface
       attention_surface
-      place_working_days {
-        id
-        day_of_week
-        opening_time
-        closing_time
-      }
     }
     allAreas {
       id

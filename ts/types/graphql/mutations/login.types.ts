@@ -1,8 +1,8 @@
-import * as Types from "../types";
+import { Exact, Scalars } from "../utils.types";
 
-export type LoginMutationVariables = Types.Exact<{
-  username: Types.Scalars["String"]["input"];
-  password: Types.Scalars["String"]["input"];
+export type LoginMutationVariables = Exact<{
+  username: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
 }>;
 
 export type LoginMutation = {

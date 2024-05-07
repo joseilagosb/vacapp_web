@@ -1,5 +1,4 @@
-"use client";
-
+import { MapStoreProvider } from "@/providers/map_store_provider";
 import dynamic from "next/dynamic";
 import { PropsWithChildren } from "react";
 
@@ -7,7 +6,11 @@ import { PropsWithChildren } from "react";
 const ThemeProvider = dynamic(() => import("@/providers/theme_provider"), { ssr: false });
 
 const Providers = ({ children }: PropsWithChildren) => {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider>
+      <MapStoreProvider>{children}</MapStoreProvider>
+    </ThemeProvider>
+  );
 };
 
 export default Providers;

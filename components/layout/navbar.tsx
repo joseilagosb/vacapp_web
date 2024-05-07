@@ -4,11 +4,9 @@ import React from "react";
 import { useTheme } from "next-themes";
 
 import styles from "../../styles/components/navbar.module.scss";
-import { Theme } from "@/utils/constants";
+import { Theme } from "@/ts/enums/constants.enums";
 
-type Props = {};
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const { theme, setTheme } = useTheme();
   return (
     <>

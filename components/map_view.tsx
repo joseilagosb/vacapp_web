@@ -8,9 +8,7 @@ import { MapStyles } from "@/utils/constants";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_TOKEN!;
 
-type MapViewProps = {};
-
-const MapView = ({}: MapViewProps) => {
+const MapView = () => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const { theme } = useTheme();

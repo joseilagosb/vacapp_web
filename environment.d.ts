@@ -8,6 +8,9 @@ declare global {
       WEB_APP_PASSWORD: string;
     }
   }
+  interface Window {
+    __URQL_DATA__: any;
+  }
 }
 
 // If this file has no import/export statements (i.e. is a script)

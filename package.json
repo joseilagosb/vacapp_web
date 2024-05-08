@@ -20,6 +20,7 @@
     "react-dom": "^18",
     "set-cookie-parser": "^2.6.0",
     "urql": "^4.0.7",
+    "usehooks-ts": "^3.1.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

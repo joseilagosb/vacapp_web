@@ -1,0 +1,16 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .modal {
+    @apply fixed inset-0 bg-gray-600 z-30 bg-opacity-50 overflow-y-auto h-full flex items-center justify-center;
+
+    .header {
+      
+    }
+
+    .body {
+      @apply p-8 w-96 shadow-lg rounded-xl bg-primary;      
+    }
+  }
+}

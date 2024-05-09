@@ -2,15 +2,15 @@
 @tailwind utilities;
 
 @layer components {
-  .modal {
-    @apply fixed inset-0 bg-gray-600 z-30 bg-opacity-50 overflow-y-auto h-full flex items-center justify-center;
+  .modalContainer {
+    @apply fixed inset-0 overflow-y-auto h-full flex items-center justify-center;
 
-    .header {
-      
+    .backdrop {
+      @apply absolute inset-0 bg-gray-600 z-10 bg-opacity-50 h-full;
     }
 
-    .body {
-      @apply p-8 w-96 shadow-lg rounded-xl bg-primary;      
+    .modal {
+      @apply p-8 w-96 z-20 shadow-lg rounded-xl bg-primary;
     }
   }
 }

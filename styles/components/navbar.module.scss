@@ -2,7 +2,8 @@
 
 @layer components {
   .navbar {
-    @apply sticky top-0 w-full py-2 bg-primary z-30 flex gap-2 items-center justify-center;
+    @apply w-full top-0 py-2 bg-primary flex gap-2 items-center justify-center;
+    height: 64px;
 
     .title {
       @apply uppercase tracking-widest;

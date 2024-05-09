@@ -4,6 +4,10 @@ import { registerUrql } from "@urql/next/rsc";
 import { Inter } from "next/font/google";
 import "../styles/globals.scss";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
+
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import Navbar from "@/components/layout/navbar";

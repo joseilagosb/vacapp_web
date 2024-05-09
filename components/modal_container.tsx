@@ -27,6 +27,7 @@ const ModalContainer = () => {
             headerTitle="Filtro de lugar"
             headerSubtitle="Selecciona entre tipos de lugar o servicios"
             headerIcon={faCopyright}
+            transparentBackdrop
             onCloseModal={onCloseModal}
           >
             <div>Hola</div>

@@ -7,6 +7,10 @@
 
     .backdrop {
       @apply absolute inset-0 bg-gray-600 z-10 bg-opacity-50 h-full;
+
+      &.transparent {
+        @apply bg-transparent;
+      }
     }
 
     .modal {
@@ -20,6 +24,10 @@
       }
       &.size-lg {
         @apply w-384;
+      }
+
+      .closeButton {
+        @apply absolute right-0 top-0 px-4 py-2 text-gray-700 text-2xl;
       }
 
       .header {
@@ -39,10 +47,6 @@
 
         .subtitle {
           @apply text-lg text-gray-700;
-        }
-
-        .closeButton {
-          @apply absolute right-0 top-0 px-4 py-2 text-gray-700 text-2xl;
         }
       }
 

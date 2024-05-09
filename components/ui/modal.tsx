@@ -5,22 +5,24 @@ import { useEventListener } from "usehooks-ts";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { ModalProps } from "@/ts/types/components/ui.types";
+import { ModalProps, ModalHeaderProps } from "@/ts/types/components/ui.types";
 import { ModalSize } from "@/ts/enums/ui.enums";
 
 import styles from "../../styles/components/ui/modal.module.scss";
 
-const Modal = ({
-  headerTitle,
-  headerSubtitle,
-  headerIcon,
-  size = ModalSize.Medium,
-  onCloseModal,
-  hasCloseButton = false,
-  preventCloseOnClickOutside = false,
-  withPaddingInBody = true,
-  children,
-}: ModalProps) => {
+const Modal = (props: ModalProps) => {
+  const {
+    withHeader = true,
+    size = ModalSize.Medium,
+    onCloseModal,
+    hasCloseButton = false,
+    preventCloseOnClickOutside = false,
+    transparentBackdrop = false,
+    withPaddingInBody = true,
+    children,
+    ...headerProps
+  } = props;
+
   const modalBackdropRef = useRef<HTMLDivElement>(null);
   const onClickOutside = (event: MouseEvent) => {
     event.stopPropagation();
@@ -41,7 +43,7 @@ const Modal = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className={styles.backdrop}
+        className={`${styles.backdrop} ${transparentBackdrop && styles.transparent}`}
       />
       <motion.div
         initial={{ rotate: 270, scale: 0, opacity: 0 }}
@@ -54,29 +56,35 @@ const Modal = ({
         }}
         className={`${styles.modal} ${size && styles[`size-${size}`]}`}
       >
-        <div className={styles.header}>
-          <div className={styles.titleContainer}>
-            {headerIcon && <FontAwesomeIcon className={styles.icon} icon={headerIcon} />}
-            <h3 className={styles.title}>{headerTitle}</h3>
-          </div>
-          <h4 className={styles.subtitle}>{headerSubtitle}</h4>
-          {hasCloseButton && (
-            <motion.button
-              whileHover={{
-                scale: 1.4,
-                transition: { duration: 0.3 },
-              }}
-              className={styles.closeButton}
-              onClick={onCloseModal}
-            >
-              &times;
-            </motion.button>
-          )}
-        </div>
+        {withHeader && <ModalHeader {...(headerProps as ModalHeaderProps)} />}
+        {hasCloseButton && (
+          <motion.button
+            whileHover={{
+              scale: 1.4,
+              transition: { duration: 0.3 },
+            }}
+            className={styles.closeButton}
+            onClick={onCloseModal}
+          >
+            &times;
+          </motion.button>
+        )}
         <div className={`${styles.body} ${withPaddingInBody && styles.withPadding}`}>
           {children}
         </div>
       </motion.div>
+    </div>
+  );
+};
+
+const ModalHeader = ({ headerTitle, headerSubtitle, headerIcon }: ModalHeaderProps) => {
+  return (
+    <div className={styles.header}>
+      <div className={styles.titleContainer}>
+        {headerIcon && <FontAwesomeIcon className={styles.icon} icon={headerIcon} />}
+        <h3 className={styles.title}>{headerTitle}</h3>
+      </div>
+      {headerSubtitle && <h4 className={styles.subtitle}>{headerSubtitle}</h4>}
     </div>
   );
 };

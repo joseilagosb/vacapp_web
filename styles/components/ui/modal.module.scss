@@ -3,14 +3,55 @@
 
 @layer components {
   .modalContainer {
-    @apply fixed inset-0 overflow-y-auto h-full flex items-center justify-center;
+    @apply fixed inset-0 overflow-hidden h-full flex items-center justify-center;
 
     .backdrop {
       @apply absolute inset-0 bg-gray-600 z-10 bg-opacity-50 h-full;
     }
 
     .modal {
-      @apply p-8 w-96 z-20 shadow-lg rounded-xl bg-primary;
+      @apply z-20 shadow-lg rounded-xl bg-primary relative overflow-hidden;
+      
+      &.size-sm {
+        @apply w-96;
+      }
+      &.size-md {
+        @apply w-192;
+      }
+      &.size-lg {
+        @apply w-384;
+      }
+
+      .header {
+        @apply bg-secondary w-full p-4 relative;
+
+        .titleContainer {
+          @apply flex flex-row items-center gap-2;
+          
+          .icon {
+            @apply text-gray-900;
+          }
+
+          .title {
+            @apply text-2xl font-bold text-gray-900;
+          }
+        }
+
+        .subtitle {
+          @apply text-lg text-gray-700;
+        }
+
+        .closeButton {
+          @apply absolute right-0 top-0 px-4 py-2 text-gray-700 text-2xl;
+        }
+      }
+
+      .body {
+        &.withPadding {
+          @apply p-4;
+        }
+
+      }
     }
   }
 }

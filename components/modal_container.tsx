@@ -1,10 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+
 import Modal from "./ui/modal";
+import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
 const ModalContainer = () => {
   const [isVisible, setIsVisible] = useState(false);
+
+  const onCloseModal = () => setIsVisible(false);
 
   return (
     <>
@@ -16,21 +21,18 @@ const ModalContainer = () => {
           Mostrar modal
         </button>
       </div>
-      {isVisible && (
-        <Modal
-          headerTitle="A"
-          headerSubtitle="B"
-          headerIcon="a"
-          borderRadius="xl"
-          headerTextColor="red"
-          size="md"
-          onCloseModal={() => {
-            setIsVisible(false);
-          }}
-        >
-          <div>Hola</div>
-        </Modal>
-      )}
+      <AnimatePresence>
+        {isVisible && (
+          <Modal
+            headerTitle="Filtro de lugar"
+            headerSubtitle="Selecciona entre tipos de lugar o servicios"
+            headerIcon={faCopyright}
+            onCloseModal={onCloseModal}
+          >
+            <div>Hola</div>
+          </Modal>
+        )}
+      </AnimatePresence>
     </>
   );
 };

@@ -3,7 +3,23 @@
 
 @layer components {
   .modalContainer {
-    @apply fixed inset-0 overflow-hidden h-full flex items-center justify-center;
+    @apply fixed inset-0 overflow-hidden h-full flex;
+
+    &.position-top {
+      @apply items-start;
+    }
+    &.position-bottom {
+      @apply items-end;
+    }
+    &.position-left {
+      @apply justify-start;
+    }
+    &.position-right {
+      @apply justify-end;
+    }
+    &.position-center {
+      @apply items-center justify-center;
+    }
 
     .backdrop {
       @apply absolute inset-0 bg-gray-600 z-10 bg-opacity-50 h-full;

@@ -5,25 +5,28 @@ import { useEventListener } from "usehooks-ts";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { ModalProps, ModalHeaderProps } from "@/ts/types/components/ui.types";
-import { ModalSize } from "@/ts/enums/ui.enums";
+import {
+  ModalProps,
+  ModalOptionalProps,
+  ModalHeaderProps,
+} from "@/ts/types/components/modal.types";
+import { ModalPosition, ModalSize } from "@/ts/enums/ui.enums";
 
 import styles from "../../styles/components/ui/modal.module.scss";
 
 const Modal = (props: ModalProps) => {
   const {
-    withHeader = true,
-    size = ModalSize.Medium,
+    position,
+    size,
     onCloseModal,
-    hasCloseButton = false,
-    preventCloseOnClickOutside = false,
-    transparentBackdrop = false,
-    withPaddingInBody = true,
+    hasCloseButton,
+    preventCloseOnClickOutside,
+    transparentBackdrop,
+    withPaddingInBody,
     children,
-    ...headerProps
   } = props;
-
   const modalBackdropRef = useRef<HTMLDivElement>(null);
+
   const onClickOutside = (event: MouseEvent) => {
     event.stopPropagation();
     if (preventCloseOnClickOutside) {
@@ -34,10 +37,30 @@ const Modal = (props: ModalProps) => {
     }
     onCloseModal();
   };
+
+  const onPressKey = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      onCloseModal();
+    }
+  };
+
   useEventListener("click", onClickOutside);
+  useEventListener("keyup", onPressKey);
+
+  const positionClasses =
+    position === ModalPosition.Center ? [position] : position.split(/(?=[A-Z])/);
+  const positionStyles = positionClasses.reduce(
+    (acc, position) => (acc += " " + styles[`position-${position.toLowerCase()}`]),
+    ``
+  );
+  const translationStyles = props.translateModal
+    ? {
+        transform: `translate(${props.translationProps.x}px, ${props.translationProps.y}px)`,
+      }
+    : {};
 
   return (
-    <div className={`${styles.modalContainer}`}>
+    <div className={`${styles.modalContainer} ${positionStyles}`} style={{ ...translationStyles }}>
       <motion.div
         ref={modalBackdropRef}
         initial={{ opacity: 0 }}
@@ -56,7 +79,7 @@ const Modal = (props: ModalProps) => {
         }}
         className={`${styles.modal} ${size && styles[`size-${size}`]}`}
       >
-        {withHeader && <ModalHeader {...(headerProps as ModalHeaderProps)} />}
+        {props.withHeader && <ModalHeader {...props.headerProps} />}
         {hasCloseButton && (
           <motion.button
             whileHover={{
@@ -77,14 +100,25 @@ const Modal = (props: ModalProps) => {
   );
 };
 
-const ModalHeader = ({ headerTitle, headerSubtitle, headerIcon }: ModalHeaderProps) => {
+Modal.defaultProps = {
+  withHeader: true,
+  position: ModalPosition.Center,
+  size: ModalSize.Medium,
+  hasCloseButton: false,
+  preventCloseOnClickOutside: false,
+  transparentBackdrop: false,
+  withPaddingInBody: true,
+  translateModal: false,
+} as ModalOptionalProps;
+
+const ModalHeader = ({ title, subtitle, icon }: ModalHeaderProps) => {
   return (
     <div className={styles.header}>
       <div className={styles.titleContainer}>
-        {headerIcon && <FontAwesomeIcon className={styles.icon} icon={headerIcon} />}
-        <h3 className={styles.title}>{headerTitle}</h3>
+        {icon && <FontAwesomeIcon className={styles.icon} icon={icon} />}
+        <h3 className={styles.title}>{title}</h3>
       </div>
-      {headerSubtitle && <h4 className={styles.subtitle}>{headerSubtitle}</h4>}
+      {subtitle && <h4 className={styles.subtitle}>{subtitle}</h4>}
     </div>
   );
 };

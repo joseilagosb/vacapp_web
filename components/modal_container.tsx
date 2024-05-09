@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 
 import Modal from "./ui/modal";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
+import { ModalPosition, ModalSize } from "@/ts/enums/ui.enums";
 
 const ModalContainer = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,9 +25,15 @@ const ModalContainer = () => {
       <AnimatePresence>
         {isVisible && (
           <Modal
-            headerTitle="Filtro de lugar"
-            headerSubtitle="Selecciona entre tipos de lugar o servicios"
-            headerIcon={faCopyright}
+            position={ModalPosition.BottomRight}
+            size={ModalSize.Small}
+            headerProps={{
+              title: "Filtro de lugar",
+              subtitle: "Selecciona entre tipos de lugar o servicios",
+              icon: faCopyright,
+            }}
+            translateModal
+            translationProps={{ x: -32, y: -96 }}
             transparentBackdrop
             onCloseModal={onCloseModal}
           >

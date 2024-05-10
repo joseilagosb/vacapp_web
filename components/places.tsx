@@ -4,11 +4,11 @@ import { useMapStore } from "@/stores/map/map.hooks";
 import React from "react";
 
 const Places = () => {
-  const places = useMapStore((state) => state.places);
+  const filteredPlaces = useMapStore((state) => state.filteredPlaces);
 
   return (
     <div className="w-full overflow-y-scroll">
-      {places.map((place) => (
+      {filteredPlaces.map((place) => (
         <div key={place.id}>
           #{place?.id}. {place?.place_name}
         </div>

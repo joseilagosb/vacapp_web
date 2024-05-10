@@ -1,3 +1,4 @@
+import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { MapState } from "@/ts/types/stores/map.types";
 
 export const initMapStore = (): MapState => {
@@ -8,5 +9,13 @@ export const initMapStore = (): MapState => {
     allServices: services,
   } = window.__URQL_DATA__;
 
-  return { places, areas, placeTypes, services, filteredPlaces: null, visiblePlaces: [] };
+  return {
+    places,
+    areas,
+    placeTypes,
+    services,
+    filteredPlaces: places,
+    visiblePlaces: [],
+    placeFilterType: PlaceFilterType.None,
+  };
 };

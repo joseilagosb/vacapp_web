@@ -1,4 +1,4 @@
-import { ModalPosition, ModalSize } from "@/ts/enums/ui.enums";
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { ReactNode } from "react";
 

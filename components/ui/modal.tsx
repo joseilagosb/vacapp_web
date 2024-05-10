@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types";
-import { ModalPosition, ModalSize } from "@/ts/enums/ui.enums";
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 
 import styles from "../../styles/components/ui/modal.module.scss";
 
@@ -46,7 +46,7 @@ const Modal = (props: ModalProps) => {
   const positionClasses =
     position === ModalPosition.Center ? ["centered"] : position.split(/(?=[A-Z])/);
   const positionStyles = positionClasses.reduce(
-    (acc, position) => (acc += " " + styles[`position-${position.toLowerCase()}`]),
+    (acc: string, position: string) => (acc += " " + styles[`position-${position.toLowerCase()}`]),
     ``
   );
   const translationStyles = props.withTranslation

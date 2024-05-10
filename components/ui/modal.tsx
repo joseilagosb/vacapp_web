@@ -5,24 +5,20 @@ import { useEventListener } from "usehooks-ts";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {
-  ModalProps,
-  ModalOptionalProps,
-  ModalHeaderProps,
-} from "@/ts/types/components/modal.types";
+import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types";
 import { ModalPosition, ModalSize } from "@/ts/enums/ui.enums";
 
 import styles from "../../styles/components/ui/modal.module.scss";
 
 const Modal = (props: ModalProps) => {
   const {
-    position,
-    size,
+    position = ModalPosition.Center,
+    size = ModalSize.Medium,
     onCloseModal,
-    hasCloseButton,
-    preventCloseOnClickOutside,
-    transparentBackdrop,
-    withPaddingInBody,
+    hasCloseButton = false,
+    preventCloseOnClickOutside = false,
+    transparentBackdrop = false,
+    withPaddingInBody = true,
     children,
   } = props;
   const modalBackdropRef = useRef<HTMLDivElement>(null);
@@ -48,23 +44,21 @@ const Modal = (props: ModalProps) => {
   useEventListener("keyup", onPressKey);
 
   const positionClasses =
-    position === ModalPosition.Center ? [position] : position.split(/(?=[A-Z])/);
+    position === ModalPosition.Center ? ["centered"] : position.split(/(?=[A-Z])/);
   const positionStyles = positionClasses.reduce(
     (acc, position) => (acc += " " + styles[`position-${position.toLowerCase()}`]),
     ``
   );
-  const translationStyles = props.translateModal
-    ? {
-        transform: `translate(${props.translationProps.x}px, ${props.translationProps.y}px)`,
-      }
+  const translationStyles = props.withTranslation
+    ? { margin: `${props.translationProps.y}px ${props.translationProps.x}px` }
     : {};
 
   return (
-    <div className={`${styles.modalContainer} ${positionStyles}`} style={{ ...translationStyles }}>
+    <div className={`${styles.modalContainer} ${positionStyles}`}>
       <motion.div
         ref={modalBackdropRef}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 0.3 }}
         exit={{ opacity: 0 }}
         className={`${styles.backdrop} ${transparentBackdrop && styles.transparent}`}
       />
@@ -78,6 +72,7 @@ const Modal = (props: ModalProps) => {
           damping: 20,
         }}
         className={`${styles.modal} ${size && styles[`size-${size}`]}`}
+        style={{ ...translationStyles }}
       >
         {props.withHeader && <ModalHeader {...props.headerProps} />}
         {hasCloseButton && (
@@ -99,17 +94,6 @@ const Modal = (props: ModalProps) => {
     </div>
   );
 };
-
-Modal.defaultProps = {
-  withHeader: true,
-  position: ModalPosition.Center,
-  size: ModalSize.Medium,
-  hasCloseButton: false,
-  preventCloseOnClickOutside: false,
-  transparentBackdrop: false,
-  withPaddingInBody: true,
-  translateModal: false,
-} as ModalOptionalProps;
 
 const ModalHeader = ({ title, subtitle, icon }: ModalHeaderProps) => {
   return (

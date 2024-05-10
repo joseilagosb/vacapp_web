@@ -14,10 +14,13 @@
     &.position-left {
       @apply justify-start;
     }
+    &.position-center {
+      @apply justify-center;
+    }
     &.position-right {
       @apply justify-end;
     }
-    &.position-center {
+    &.position-centered {
       @apply items-center justify-center;
     }
 

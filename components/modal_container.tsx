@@ -27,13 +27,14 @@ const ModalContainer = () => {
           <Modal
             position={ModalPosition.BottomRight}
             size={ModalSize.Small}
+            withHeader
             headerProps={{
               title: "Filtro de lugar",
               subtitle: "Selecciona entre tipos de lugar o servicios",
               icon: faCopyright,
             }}
-            translateModal
-            translationProps={{ x: -32, y: -96 }}
+            withTranslation
+            translationProps={{ x: 32, y: 100 }}
             transparentBackdrop
             onCloseModal={onCloseModal}
           >

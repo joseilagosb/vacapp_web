@@ -13,29 +13,25 @@ export type ModalTranslationProps = {
   y: number;
 };
 
-export type ModalOptionalProps = {
-  position: ModalPosition;
-  size: ModalSize;
-  hasCloseButton: boolean;
-  preventCloseOnClickOutside: boolean;
-  transparentBackdrop: boolean;
-  withPaddingInBody: boolean;
-};
-
 export type ModalProps = {
+  position?: ModalPosition;
+  size?: ModalSize;
   onCloseModal: () => void;
+  hasCloseButton?: boolean;
+  preventCloseOnClickOutside?: boolean;
+  transparentBackdrop?: boolean;
+  withPaddingInBody?: boolean;
   children: ReactNode;
-} & ModalOptionalProps &
-  ModalWithHeaderProps &
+} & ModalWithHeaderProps &
   ModalWithTranslationProps;
 
-type ModalWithHeaderProps =
+export type ModalWithHeaderProps =
   | { withHeader?: true; headerProps: ModalHeaderProps }
   | { withHeader?: false };
 
-type ModalWithTranslationProps =
+export type ModalWithTranslationProps =
   | {
-      translateModal?: true;
+      withTranslation?: true;
       translationProps: ModalTranslationProps;
     }
-  | { translateModal?: false };
+  | { withTranslation?: false };

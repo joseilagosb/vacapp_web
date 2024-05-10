@@ -13,6 +13,7 @@ export type MapState = {
 
 export type MapActions = {
   filterPlaces: (placesFilterType: PlaceFilterType, filtersList: Array<number>) => void;
+  restoreFilters: () => void;
 };
 
 export type MapStore = MapState & MapActions;

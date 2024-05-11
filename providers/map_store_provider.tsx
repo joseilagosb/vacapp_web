@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, createContext, useRef } from "react";
+import { PropsWithChildren, createContext, useRef } from "react";
 import { StoreApi } from "zustand";
 
 import { initMapStore } from "@/stores/map/map.init";
@@ -9,11 +9,7 @@ import { MapStore } from "@/ts/types/stores/map.types";
 
 export const MapStoreContext = createContext<StoreApi<MapStore> | null>(null);
 
-export type MapStoreProviderProps = {
-  children: ReactNode;
-};
-
-export const MapStoreProvider = ({ children }: MapStoreProviderProps) => {
+export const MapStoreProvider = ({ children }: PropsWithChildren) => {
   const storeRef = useRef<StoreApi<MapStore>>();
   if (!storeRef.current) {
     storeRef.current = createMapStore(initMapStore());

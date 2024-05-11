@@ -1,27 +1,51 @@
 import React from "react";
-import { faCopyright } from "@fortawesome/free-regular-svg-icons";
+import { useShallow } from "zustand/react/shallow";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "./ui/modal";
 
-import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { useMapStore } from "@/stores/map/map.hooks";
 
-const PlaceFiltersModal = ({ onCloseModal }: { onCloseModal: () => void }) => {
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { PlaceFiltersModalProps } from "@/ts/types/components/place_filters_modal.types";
+import { PlaceFilterType } from "@/ts/enums/stores.types";
+
+const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFiltersModalProps) => {
+  const { placeTypes, services } = useMapStore(
+    useShallow((state) => ({ placeTypes: state.placeTypes, services: state.services }))
+  );
+
+  const renderBody = () => {
+    switch (filterType) {
+      case PlaceFilterType.PlaceTypes:
+        return placeTypes.map((placeType) => <div>{placeType.place_type_name}</div>);
+      case PlaceFilterType.Services:
+        return services.map((service) => <div>{service.service_name}</div>);
+      default:
+        return <div></div>;
+    }
+  };
+
   return (
     <Modal
-      position={ModalPosition.BottomRight}
-      size={ModalSize.Small}
+      position={ModalPosition.Center}
+      size={ModalSize.Medium}
       withHeader
       headerProps={{
-        title: "Filtro de lugar",
-        subtitle: "Selecciona entre tipos de lugar o servicios",
-        icon: faCopyright,
+        title: "Filtros de lugar",
+        subtitle: "Selecciona los parámetros que deseas ver en el mapa",
+        icon: faFilter,
       }}
-      withTranslation
-      translationProps={{ x: 32, y: 100 }}
-      transparentBackdrop
       onCloseModal={onCloseModal}
     >
-      <div>Hola</div>
+      {renderBody()}
+      <div className="absolute bottom-2 right-2 flex gap-2">
+        <button className="bg-secondary font-xs p-2 rounded-lg">Todos</button>
+        <button className="bg-secondary font-xs p-2 rounded-lg">Ninguno</button>
+        <button className="bg-secondary font-xs p-2 rounded-lg" onClick={() => onClickFilter(filterType, [2, 3, 4])}>
+          Filtrar
+        </button>
+      </div>
     </Modal>
   );
 };

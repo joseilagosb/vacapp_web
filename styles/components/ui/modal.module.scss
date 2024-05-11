@@ -35,6 +35,9 @@
     .modal {
       @apply z-20 shadow-lg rounded-xl bg-primary relative overflow-hidden;
       
+      &.size-xs {
+        @apply w-48;
+      }
       &.size-sm {
         @apply w-96;
       }

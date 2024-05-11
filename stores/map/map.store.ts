@@ -1,4 +1,3 @@
-import Places from "@/components/places";
 import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { MapState, MapStore } from "@/ts/types/stores/map.types";
 import { createStore } from "zustand";
@@ -21,22 +20,18 @@ export const createMapStore = (initialState: MapState = initialMapState) => {
         let newFilteredPlaces;
         switch (placeFilterType) {
           case PlaceFilterType.PlaceTypes:
-            newFilteredPlaces = state.places.filter((place) =>
-              filtersList.includes(+place.place_type.id)
-            );
+            newFilteredPlaces = state.places.filter((place) => filtersList.includes(+place.place_type.id));
             break;
           case PlaceFilterType.Services:
             newFilteredPlaces = state.places.filter((place) => {
               const services = place.services;
               return services.some((service) => filtersList.includes(+service.id));
             });
-          case PlaceFilterType.None:
           default:
             break;
         }
         return { filteredPlaces: newFilteredPlaces, placeFilterType: placeFilterType };
       }),
-    restoreFilters: () =>
-      set((state) => ({ filteredPlaces: state.places, placeFilterType: PlaceFilterType.None })),
+    restoreFilters: () => set((state) => ({ filteredPlaces: state.places, placeFilterType: PlaceFilterType.None })),
   }));
 };

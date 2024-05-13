@@ -6,11 +6,12 @@ import { useShallow } from "zustand/react/shallow";
 
 import { faMapSigns, faFilter, faTimes } from "@fortawesome/free-solid-svg-icons";
 
+import { IconButton } from "../ui/button";
 import Places from "../places";
 import FloatingButtonsContainer from "../floating_buttons_container";
 import PlaceFiltersModal from "../place_filters_modal";
 import FilterDialog from "../filter_dialog";
-import { IconButton } from "../ui/button";
+import NoPlacesFoundModal from "../no_places_found_modal";
 
 import { useMapStore } from "@/stores/map/map.hooks";
 
@@ -22,10 +23,11 @@ const HomePage = () => {
   const [isFilterDialogVisible, setIsFilterDialogVisible] = useState(false);
   const [selectedFilterType, setSelectedFilterType] = useState(PlaceFilterType.None);
 
-  const { filterPlaces, placeFilterType, restoreFilters } = useMapStore(
+  const { filterPlaces, filteredPlaces, placeFilterType, restoreFilters } = useMapStore(
     useShallow((state) => ({
       placeFilterType: state.placeFilterType,
       filterPlaces: state.filterPlaces,
+      filteredPlaces: state.filteredPlaces,
       restoreFilters: state.restoreFilters,
     }))
   );
@@ -53,6 +55,8 @@ const HomePage = () => {
         );
     }
   };
+
+  const noPlacesFound = filteredPlaces.length === 0 && placeFilterType != PlaceFilterType.None;
 
   const onSelectedFilterType = (filterType: PlaceFilterType) => {
     setIsFilterDialogVisible(false);
@@ -88,6 +92,9 @@ const HomePage = () => {
             onCloseModal={() => setIsPlaceFiltersModalVisible(false)}
           />
         )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {noPlacesFound && <NoPlacesFoundModal onClickRestore={restoreFilters} />}
       </AnimatePresence>
     </>
   );

@@ -1,0 +1,15 @@
+@tailwind components;
+
+@layer components {
+  .placeFiltersModal {
+    @apply flex flex-col gap-4;
+    
+    .itemsList {
+      @apply flex flex-wrap gap-2;
+    }
+  
+    .actionButtons {
+      @apply flex justify-end gap-2;
+    }
+  }
+}

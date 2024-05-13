@@ -5,11 +5,13 @@
 :root {
   --primary-color: 245, 176, 65;
   --secondary-color: 249, 231, 159;
+  --tertiary-color: 255, 178, 103;
 }
 
 .dark {
   --primary-color: 11, 83, 69;
   --secondary-color: 20, 143, 119;
+  --tertiary-color: 0, 103, 107;
 }
 
 @layer base {

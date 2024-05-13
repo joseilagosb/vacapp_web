@@ -1,0 +1,25 @@
+@tailwind components;
+
+@layer components {
+  .noPlacesFoundModal {
+    @apply flex flex-col items-center justify-center gap-2 bg-secondary p-8;
+
+    .icon {
+      @apply text-4xl text-yellow-400 relative;
+
+      &:after {
+        content: "***";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+      }
+    }
+
+    .message {
+      @apply text-xl text-center;
+    }
+  }
+}

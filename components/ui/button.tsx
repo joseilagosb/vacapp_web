@@ -7,12 +7,19 @@ import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
 import styles from "../../styles/components/ui/button.module.scss";
 
 const Button = (props: ButtonProps) => {
-  const { onClick, color = ButtonColor.Primary, size = ButtonSize.Medium, children } = props;
+  const {
+    onClick,
+    color = ButtonColor.Primary,
+    size = ButtonSize.Medium,
+    children,
+    ...otherProps
+  } = props;
 
   return (
     <button
       className={`${styles.button} ${styles[`size-${size}`]} ${styles[`color-${color}`]}`}
       onClick={onClick}
+      {...otherProps}
     >
       {children}
     </button>

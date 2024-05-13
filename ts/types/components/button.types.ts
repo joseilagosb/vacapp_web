@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
@@ -8,7 +8,7 @@ export type ButtonProps = {
   size?: ButtonSize;
   color?: ButtonColor;
   children: ReactNode;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type IconButtonProps = {
   icon: IconDefinition;

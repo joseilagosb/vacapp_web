@@ -1,10 +1,14 @@
-import React from 'react'
+import React from "react";
 
-import Modal from './ui/modal'
+import Modal from "./ui/modal";
+import { TextButton } from "./ui/button";
 
-import { ModalPosition, ModalSize } from '@/ts/enums/components/modal.enums'
-import { PlaceFilterType } from '@/ts/enums/stores.types'
-import { FilterDialogProps } from '@/ts/types/components/filter_dialog.types'
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { PlaceFilterType } from "@/ts/enums/stores.types";
+import { FilterDialogProps } from "@/ts/types/components/filter_dialog.types";
+
+import styles from "../styles/components/filter_dialog.module.scss";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
 
 const FilterDialog = ({ onCloseModal, onSelectedFilterType }: FilterDialogProps) => {
   return (
@@ -13,19 +17,24 @@ const FilterDialog = ({ onCloseModal, onSelectedFilterType }: FilterDialogProps)
       size={ModalSize.ExtraSmall}
       onCloseModal={onCloseModal}
       withTranslation
-      translationProps={{
-        x: 32,
-        y: 95
-      }}
+      translationProps={{ x: 32, y: 95 }}
       transparentBackdrop
     >
-      <div className="flex flex-col items-end gap-4">
-        <button className="font-sm" onClick={() => onSelectedFilterType(PlaceFilterType.PlaceTypes)}>Por tipo de lugar</button>
-        <div className="h-1 w-full bg-secondary" />
-        <button className="font-sm" onClick={() => onSelectedFilterType(PlaceFilterType.Services)}>Por servicios</button>
+      <div className={styles.filterDialog}>
+        <TextButton
+          size={ButtonSize.Small}
+          onClick={() => onSelectedFilterType(PlaceFilterType.PlaceTypes)}
+          text="Por tipo de lugar"
+        />
+        <div className={styles.separator} />
+        <TextButton
+          size={ButtonSize.Small}
+          onClick={() => onSelectedFilterType(PlaceFilterType.Services)}
+          text="Por servicios"
+        />
       </div>
     </Modal>
-  )
-}
+  );
+};
 
-export default FilterDialog
+export default FilterDialog;

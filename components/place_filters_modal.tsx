@@ -3,12 +3,14 @@ import { useShallow } from "zustand/react/shallow";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "./ui/modal";
+import { TextButton } from "./ui/button";
 
 import { useMapStore } from "@/stores/map/map.hooks";
 
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { PlaceFiltersModalProps } from "@/ts/types/components/place_filters_modal.types";
 import { PlaceFilterType } from "@/ts/enums/stores.types";
+import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
 
 const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFiltersModalProps) => {
   const { placeTypes, services } = useMapStore(
@@ -40,11 +42,24 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
     >
       {renderBody()}
       <div className="absolute bottom-2 right-2 flex gap-2">
-        <button className="bg-secondary font-xs p-2 rounded-lg">Todos</button>
-        <button className="bg-secondary font-xs p-2 rounded-lg">Ninguno</button>
-        <button className="bg-secondary font-xs p-2 rounded-lg" onClick={() => onClickFilter(filterType, [2, 3, 4])}>
-          Filtrar
-        </button>
+        <TextButton
+          onClick={() => {}}
+          size={ButtonSize.Small}
+          color={ButtonColor.Secondary}
+          text="Todos"
+        />
+        <TextButton
+          onClick={() => {}}
+          size={ButtonSize.Small}
+          color={ButtonColor.Secondary}
+          text="Ninguno"
+        />
+        <TextButton
+          onClick={() => onClickFilter(filterType, [2, 3, 4])}
+          size={ButtonSize.Small}
+          color={ButtonColor.Secondary}
+          text="Filtrar"
+        />
       </div>
     </Modal>
   );

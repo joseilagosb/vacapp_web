@@ -9,6 +9,7 @@ import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types"
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 
 import styles from "../../styles/components/ui/modal.module.scss";
+import animations from "../../styles/components/ui/modal.animations";
 
 const Modal = (props: ModalProps) => {
   const {
@@ -19,6 +20,7 @@ const Modal = (props: ModalProps) => {
     preventCloseOnClickOutside = false,
     transparentBackdrop = false,
     withPaddingInBody = true,
+    modalAnimation = animations.modal,
     children,
   } = props;
   const modalBackdropRef = useRef<HTMLDivElement>(null);
@@ -57,20 +59,11 @@ const Modal = (props: ModalProps) => {
     <div className={`${styles.modalContainer} ${positionStyles}`}>
       <motion.div
         ref={modalBackdropRef}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.3 }}
-        exit={{ opacity: 0 }}
+        {...animations.modalBackdrop}
         className={`${styles.backdrop} ${transparentBackdrop && styles.transparent}`}
       />
       <motion.div
-        initial={{ rotate: 270, scale: 0, opacity: 0 }}
-        animate={{ rotate: 360, scale: 1, opacity: 1 }}
-        exit={{ rotate: 180, scale: 0, opacity: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-        }}
+        {...modalAnimation}
         className={`${styles.modal} ${size && styles[`size-${size}`]}`}
         style={{ ...translationStyles }}
       >

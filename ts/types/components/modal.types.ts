@@ -1,5 +1,6 @@
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { MotionProps } from "framer-motion";
 import { ReactNode } from "react";
 
 export type ModalHeaderProps = {
@@ -21,6 +22,7 @@ export type ModalProps = {
   preventCloseOnClickOutside?: boolean;
   transparentBackdrop?: boolean;
   withPaddingInBody?: boolean;
+  modalAnimation?: MotionProps;
   children: ReactNode;
 } & ModalWithHeaderProps &
   ModalWithTranslationProps;

@@ -1,10 +1,27 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { ButtonProps, IconButtonProps, TextButtonProps } from "@/ts/types/components/button.types";
+import {
+  ButtonAnimations,
+  ButtonProps,
+  IconButtonProps,
+  TextButtonProps,
+} from "@/ts/types/components/button.types";
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
 
 import styles from "../../styles/components/ui/button.module.scss";
+import defaultAnimations from "../../styles/components/ui/button.animations";
+
+const getButtonAnimations = (animations: ButtonAnimations) => {
+  if (animations === "none") {
+    return {};
+  } else if (animations === "default") {
+    return defaultAnimations;
+  } else {
+    return { ...defaultAnimations.button, ...animations };
+  }
+};
 
 const Button = (props: ButtonProps) => {
   const {
@@ -12,17 +29,22 @@ const Button = (props: ButtonProps) => {
     color = ButtonColor.Primary,
     size = ButtonSize.Medium,
     children,
+    animations = "default",
+    type,
     ...otherProps
   } = props;
 
+  let buttonAnimations = getButtonAnimations(animations);
+
   return (
-    <button
+    <motion.button
       className={`${styles.button} ${styles[`size-${size}`]} ${styles[`color-${color}`]}`}
       onClick={onClick}
+      {...buttonAnimations}
       {...otherProps}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 

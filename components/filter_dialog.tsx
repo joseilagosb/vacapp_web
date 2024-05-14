@@ -4,15 +4,17 @@ import Modal from "./ui/modal";
 import { TextButton } from "./ui/button";
 
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
 import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { FilterDialogProps } from "@/ts/types/components/filter_dialog.types";
 
 import styles from "../styles/components/filter_dialog.module.scss";
-import { ButtonSize } from "@/ts/enums/components/button.enums";
+import animations from "../styles/components/filter_dialog.animations";
 
 const FilterDialog = ({ onCloseModal, onSelectedFilterType }: FilterDialogProps) => {
   return (
     <Modal
+      modalAnimation={animations.filterDialog}
       position={ModalPosition.BottomRight}
       size={ModalSize.ExtraSmall}
       onCloseModal={onCloseModal}

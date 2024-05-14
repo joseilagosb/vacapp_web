@@ -53,8 +53,7 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
     <Modal
       position={ModalPosition.Center}
       size={ModalSize.Medium}
-      withHeader
-      headerProps={{
+      header={{
         title: "Filtros de lugar",
         subtitle: "Selecciona los parámetros que deseas ver en el mapa",
         icon: faFilter,

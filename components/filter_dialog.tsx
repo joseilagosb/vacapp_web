@@ -14,12 +14,11 @@ import animations from "../styles/components/filter_dialog.animations";
 const FilterDialog = ({ onCloseModal, onSelectedFilterType }: FilterDialogProps) => {
   return (
     <Modal
-      modalAnimation={animations.filterDialog}
+      animations={animations.filterDialog}
       position={ModalPosition.BottomRight}
       size={ModalSize.ExtraSmall}
       onCloseModal={onCloseModal}
-      withTranslation
-      translationProps={{ x: 32, y: 95 }}
+      translation={{ x: 32, y: 95 }}
       transparentBackdrop
     >
       <div className={styles.filterDialog}>

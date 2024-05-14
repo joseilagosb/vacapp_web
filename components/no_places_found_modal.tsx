@@ -12,16 +12,11 @@ import styles from "../styles/components/no_places_found_modal.module.scss";
 
 const NoPlacesFoundModal = ({ onClickRestore }: NoPlacesFoundModalProps) => {
   return (
-    <Modal
-      onCloseModal={() => {}}
-      size={ModalSize.Small}
-      withHeader={false}
-      withTranslation={false}
-      preventCloseOnClickOutside
-      withPaddingInBody={false}
-    >
+    <Modal size={ModalSize.Small} preventCloseOnClickOutside withPaddingInBody={false}>
       <div className={styles.noPlacesFoundModal}>
-        <FontAwesomeIcon icon={faFaceFrown} className={styles.icon} />
+        <div className={styles.iconContainer}>
+          <FontAwesomeIcon icon={faFaceFrown} className={styles.icon} />
+        </div>
         <span className={styles.message}>
           No hay lugares disponibles a esta hora según los filtros que ingresaste.
         </span>

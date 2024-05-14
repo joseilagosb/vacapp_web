@@ -1,7 +1,9 @@
-import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { MotionProps } from "framer-motion";
 import { ReactNode } from "react";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
+import { ComponentAnimations } from "../components.types";
+
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 
 export type ModalHeaderProps = {
   title: string;
@@ -17,23 +19,13 @@ export type ModalTranslationProps = {
 export type ModalProps = {
   position?: ModalPosition;
   size?: ModalSize;
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
   hasCloseButton?: boolean;
   preventCloseOnClickOutside?: boolean;
   transparentBackdrop?: boolean;
   withPaddingInBody?: boolean;
-  modalAnimation?: MotionProps;
+  animations?: ComponentAnimations;
+  header?: ModalHeaderProps | "none";
+  translation?: ModalTranslationProps | "none";
   children: ReactNode;
-} & ModalWithHeaderProps &
-  ModalWithTranslationProps;
-
-export type ModalWithHeaderProps =
-  | { withHeader?: true; headerProps: ModalHeaderProps }
-  | { withHeader?: false };
-
-export type ModalWithTranslationProps =
-  | {
-      withTranslation?: true;
-      translationProps: ModalTranslationProps;
-    }
-  | { withTranslation?: false };
+};

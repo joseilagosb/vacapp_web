@@ -9,21 +9,24 @@ import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types"
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 
 import styles from "../../styles/components/ui/modal.module.scss";
-import animations from "../../styles/components/ui/modal.animations";
+import defaultAnimations from "../../styles/components/ui/modal.animations";
+import { getAnimationsObj } from "@/utils/common";
 
-const Modal = (props: ModalProps) => {
-  const {
-    position = ModalPosition.Center,
-    size = ModalSize.Medium,
-    onCloseModal,
-    hasCloseButton = false,
-    preventCloseOnClickOutside = false,
-    transparentBackdrop = false,
-    withPaddingInBody = true,
-    modalAnimation = animations.modal,
-    children,
-  } = props;
+const Modal = ({
+  position = ModalPosition.Center,
+  size = ModalSize.Medium,
+  onCloseModal = () => {},
+  hasCloseButton = false,
+  preventCloseOnClickOutside = false,
+  transparentBackdrop = false,
+  withPaddingInBody = true,
+  animations = "default",
+  header = "none",
+  translation = "none",
+  children,
+}: ModalProps) => {
   const modalBackdropRef = useRef<HTMLDivElement>(null);
+  const modalAnimations = getAnimationsObj(animations, defaultAnimations.modal);
 
   const onClickOutside = (event: MouseEvent) => {
     event.stopPropagation();
@@ -51,23 +54,22 @@ const Modal = (props: ModalProps) => {
     (acc: string, position: string) => (acc += " " + styles[`position-${position.toLowerCase()}`]),
     ``
   );
-  const translationStyles = props.withTranslation
-    ? { margin: `${props.translationProps.y}px ${props.translationProps.x}px` }
-    : {};
+  const translationStyles =
+    translation != "none" ? { margin: `${translation.y}px ${translation.x}px` } : {};
 
   return (
     <div className={`${styles.modalContainer} ${positionStyles}`}>
       <motion.div
         ref={modalBackdropRef}
-        {...animations.modalBackdrop}
+        {...defaultAnimations.modalBackdrop}
         className={`${styles.backdrop} ${transparentBackdrop && styles.transparent}`}
       />
       <motion.div
-        {...modalAnimation}
+        {...modalAnimations}
         className={`${styles.modal} ${size && styles[`size-${size}`]}`}
         style={{ ...translationStyles }}
       >
-        {props.withHeader && <ModalHeader {...props.headerProps} />}
+        {header != "none" && <ModalHeader {...header} />}
         {hasCloseButton && (
           <motion.button
             whileHover={{

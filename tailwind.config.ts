@@ -8,7 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundColor: {
+      colors: {
         primary: "rgb(var(--primary-color))",
         secondary: "rgb(var(--secondary-color))",
         tertiary: "rgb(var(--tertiary-color))",
@@ -18,6 +18,7 @@ const config: Config = {
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       width: {
+        "18": "4.5rem",
         "192": "48rem",
         "384": "96rem",
       },

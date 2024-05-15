@@ -1,11 +1,14 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "./ui/modal";
 import { TextButton } from "./ui/button";
 
+import { PlaceFiltersStoreProvider } from "@/providers/place_filters_provider";
+
 import { useMapStore } from "@/stores/map/map.hooks";
+import { usePlaceFiltersStore } from "@/stores/place_filters/place_filters.hooks";
 
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { PlaceFiltersModalProps } from "@/ts/types/components/place_filters_modal.types";
@@ -31,23 +34,17 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
         return [];
     }
   }, []);
-  const [filtersList, setFiltersList] = useState<Array<number>>([]);
-  const filterButtonDisabled = filtersList.length === 0 || filtersList.length === items.length;
 
-  const isItemSelected = (item: number) => {
-    return filtersList.includes(item);
-  };
-
-  const toggleItemInFiltersList = (item: number) => {
-    setFiltersList(
-      filtersList.includes(item)
-        ? filtersList.filter((filter) => filter !== item)
-        : [...filtersList, item]
-    );
-  };
-
-  const selectAllItems = () => setFiltersList(items.map((item) => item.id));
-  const deselectAllItems = () => setFiltersList([]);
+  const { filters, toggleFilter, selectMultipleFilters, clearFilters } = usePlaceFiltersStore(
+    useShallow((state) => ({
+      filters: state.filters,
+      toggleFilter: state.toggleFilter,
+      selectMultipleFilters: state.selectMultipleFilters,
+      clearFilters: state.clearFilters,
+    }))
+  );
+  const filterButtonDisabled = filters.length === 0 || filters.length === items.length;
+  const isItemSelected = (item: number) => filters.includes(item);
 
   return (
     <Modal
@@ -66,26 +63,26 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
             <TextButton
               key={`place-filters-item-${item.id}`}
               color={isItemSelected(item.id) ? ButtonColor.Tertiary : ButtonColor.Secondary}
-              onClick={() => toggleItemInFiltersList(item.id)}
+              onClick={() => toggleFilter(item.id)}
               text={item.name}
             />
           ))}
         </div>
         <div className={styles.actionButtons}>
           <TextButton
-            onClick={selectAllItems}
+            onClick={() => selectMultipleFilters(items.map((item) => item.id))}
             size={ButtonSize.Small}
             color={ButtonColor.Secondary}
             text="Todos"
           />
           <TextButton
-            onClick={deselectAllItems}
+            onClick={clearFilters}
             size={ButtonSize.Small}
             color={ButtonColor.Secondary}
             text="Ninguno"
           />
           <TextButton
-            onClick={() => onClickFilter(filterType, filtersList)}
+            onClick={() => onClickFilter(filters)}
             size={ButtonSize.Small}
             color={ButtonColor.Secondary}
             text="Filtrar"
@@ -97,4 +94,12 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
   );
 };
 
-export default PlaceFiltersModal;
+const PlaceFiltersModalWrapper = (props: PlaceFiltersModalProps) => {
+  return (
+    <PlaceFiltersStoreProvider>
+      <PlaceFiltersModal {...props} />
+    </PlaceFiltersStoreProvider>
+  );
+};
+
+export default PlaceFiltersModalWrapper;

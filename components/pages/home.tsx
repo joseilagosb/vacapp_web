@@ -64,8 +64,8 @@ const HomePage = () => {
     setIsPlaceFiltersModalVisible(true);
   };
 
-  const onClickFilter = (filterType: PlaceFilterType, filtersList: Array<number>) => {
-    filterPlaces(filterType, filtersList);
+  const onClickFilter = (filters: Array<number>) => {
+    filterPlaces(selectedFilterType, filters);
     setIsPlaceFiltersModalVisible(false);
   };
 

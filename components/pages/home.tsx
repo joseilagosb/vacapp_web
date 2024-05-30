@@ -1,17 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import { useShallow } from "zustand/react/shallow";
+import { AnimatePresence } from "framer-motion";
 
 import { faMapSigns, faFilter, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { IconButton } from "../ui/button";
 import Places from "../places";
 import FloatingButtonsContainer from "../floating_buttons_container";
+import FilterByModal from "../filter_by_modal";
 import PlaceFiltersModal from "../place_filters_modal";
-import FilterDialog from "../filter_dialog";
 import NoPlacesFoundModal from "../no_places_found_modal";
+import LegendModal from "../legend_modal";
 
 import { useMapStore } from "@/stores/map/map.hooks";
 
@@ -20,7 +21,8 @@ import { ButtonColor } from "@/ts/enums/components/button.enums";
 
 const HomePage = () => {
   const [isPlaceFiltersModalVisible, setIsPlaceFiltersModalVisible] = useState(false);
-  const [isFilterDialogVisible, setIsFilterDialogVisible] = useState(false);
+  const [isFilterByModalVisible, setIsFilterByModalVisible] = useState(false);
+  const [isLegendModalVisible, setIsLegendModalVisible] = useState(false);
   const [selectedFilterType, setSelectedFilterType] = useState(PlaceFilterType.None);
 
   const { filterPlaces, filteredPlaces, placeFilterType, restoreFilters } = useMapStore(
@@ -48,7 +50,7 @@ const HomePage = () => {
       default:
         return (
           <IconButton
-            onClick={() => setIsFilterDialogVisible(true)}
+            onClick={() => setIsFilterByModalVisible(true)}
             icon={faFilter}
             text="Filtrar"
           />
@@ -59,7 +61,7 @@ const HomePage = () => {
   const noPlacesFound = filteredPlaces.length === 0 && placeFilterType != PlaceFilterType.None;
 
   const onSelectedFilterType = (filterType: PlaceFilterType) => {
-    setIsFilterDialogVisible(false);
+    setIsFilterByModalVisible(false);
     setSelectedFilterType(filterType);
     setIsPlaceFiltersModalVisible(true);
   };
@@ -73,28 +75,35 @@ const HomePage = () => {
     <>
       <Places />
       <FloatingButtonsContainer>
-        <IconButton icon={faMapSigns} onClick={() => {}} text="Sectores" />
+        <IconButton
+          icon={faMapSigns}
+          onClick={() => setIsLegendModalVisible(true)}
+          text="Símbolos"
+        />
         {renderFilterButton()}
       </FloatingButtonsContainer>
       <AnimatePresence>
-        {isFilterDialogVisible && (
-          <FilterDialog
-            onCloseModal={() => setIsFilterDialogVisible(false)}
+        {isFilterByModalVisible && (
+          <FilterByModal
+            key="filter-by-modal"
+            onCloseModal={() => setIsFilterByModalVisible(false)}
             onSelectedFilterType={onSelectedFilterType}
           />
         )}
-      </AnimatePresence>
-      <AnimatePresence>
         {isPlaceFiltersModalVisible && (
           <PlaceFiltersModal
+            key="place-filters-modal"
             filterType={selectedFilterType}
             onClickFilter={onClickFilter}
             onCloseModal={() => setIsPlaceFiltersModalVisible(false)}
           />
         )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {noPlacesFound && <NoPlacesFoundModal onClickRestore={restoreFilters} />}
+        {isLegendModalVisible && (
+          <LegendModal key="legend-modal" onCloseModal={() => setIsLegendModalVisible(false)} />
+        )}
+        {noPlacesFound && (
+          <NoPlacesFoundModal key="no-places-found-modal" onClickRestore={restoreFilters} />
+        )}
       </AnimatePresence>
     </>
   );

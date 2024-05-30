@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useEventListener } from "usehooks-ts";
-import { motion } from "framer-motion";
+import { motion, useIsPresent } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types";
@@ -27,6 +27,8 @@ const Modal = ({
 }: ModalProps) => {
   const modalBackdropRef = useRef<HTMLDivElement>(null);
   const modalAnimations = getAnimationsObj(animations, defaultAnimations.modal);
+
+  const isPresent = useIsPresent();
 
   const onClickOutside = (event: MouseEvent) => {
     event.stopPropagation();
@@ -67,7 +69,7 @@ const Modal = ({
       <motion.div
         {...modalAnimations}
         className={`${styles.modal} ${size && styles[`size-${size}`]}`}
-        style={{ ...translationStyles }}
+        style={{ ...translationStyles, pointerEvents: isPresent ? "auto" : "none" }}
       >
         {header != "none" && <ModalHeader {...header} />}
         {hasCloseButton && (

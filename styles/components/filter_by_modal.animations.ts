@@ -1,7 +1,7 @@
 import { AnimationsObject } from "@/ts/types/constants.types";
 
 const animations: AnimationsObject = {
-  filterDialog: {
+  filterByModal: {
     initial: {
       opacity: 0,
     },
@@ -11,6 +11,7 @@ const animations: AnimationsObject = {
     },
     exit: {
       opacity: 0,
+      transition: { duration: 0.1 },
     },
     transition: {
       type: "spring",

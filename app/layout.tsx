@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { registerUrql } from "@urql/next/rsc";
 import { Inter } from "next/font/google";
-import "../styles/globals.scss";
+import "./globals.scss";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";

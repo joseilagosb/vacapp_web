@@ -35,7 +35,7 @@ const MapView = () => {
     map.current?.setStyle(MapStyles[theme!]);
   }, [theme]);
 
-  return <div ref={mapContainer} className="map-container" />;
+  return <div ref={mapContainer} className="size-full" />;
 };
 
 export default MapView;

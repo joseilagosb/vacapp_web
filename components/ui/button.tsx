@@ -7,8 +7,8 @@ import { getAnimationsObj } from "@/utils/common";
 import { ButtonProps, IconButtonProps, TextButtonProps } from "@/ts/types/components/button.types";
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
 
-import styles from "../../styles/components/ui/button.module.scss";
-import defaultAnimations from "../../styles/components/ui/button.animations";
+import { getButtonClasses } from "./button.classes";
+import defaultAnimations from "./button.animations";
 
 const Button = ({
   onClick,
@@ -20,10 +20,11 @@ const Button = ({
   ...otherProps
 }: ButtonProps) => {
   let buttonAnimations = getAnimationsObj(animations, defaultAnimations);
+  const buttonClasses = getButtonClasses(color, size);
 
   return (
     <motion.button
-      className={`${styles.button} ${styles[`size-${size}`]} ${styles[`color-${color}`]}`}
+      className={`${buttonClasses} disabled:bg-gray-600 disabled:text-gray-400`}
       onClick={onClick}
       {...buttonAnimations}
       {...otherProps}
@@ -35,10 +36,10 @@ const Button = ({
 
 export const IconButton = ({ icon, text, ...otherProps }: IconButtonProps) => {
   const newChildren = (
-    <div className={styles.iconButton}>
-      <FontAwesomeIcon icon={icon} className={styles.icon} />
-      <span className={styles.text}>{text}</span>
-    </div>
+    <>
+      <FontAwesomeIcon icon={icon} className="mr-2" />
+      <span>{text}</span>
+    </>
   );
 
   return <Button children={newChildren} {...otherProps} />;

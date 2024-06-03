@@ -8,8 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types";
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 
-import styles from "../../styles/components/ui/modal.module.scss";
-import defaultAnimations from "../../styles/components/ui/modal.animations";
+import { getModalClasses, getModalContainerClasses } from "./modal.classes";
+import defaultAnimations from "./modal.animations";
 import { getAnimationsObj } from "@/utils/common";
 
 const Modal = ({
@@ -50,25 +50,24 @@ const Modal = ({
   useEventListener("click", onClickOutside);
   useEventListener("keyup", onPressKey);
 
-  const positionClasses =
-    position === ModalPosition.Center ? ["centered"] : position.split(/(?=[A-Z])/);
-  const positionStyles = positionClasses.reduce(
-    (acc: string, position: string) => (acc += " " + styles[`position-${position.toLowerCase()}`]),
-    ``
-  );
+  const modalContainerClasses = getModalContainerClasses(position);
+  const modalClasses = getModalClasses(size);
+
   const translationStyles =
     translation != "none" ? { margin: `${translation.y}px ${translation.x}px` } : {};
 
   return (
-    <div className={`${styles.modalContainer} ${positionStyles}`}>
+    <div className={`fixed inset-0 overflow-hidden h-full flex ${modalContainerClasses}`}>
       <motion.div
         ref={modalBackdropRef}
         {...defaultAnimations.modalBackdrop}
-        className={`${styles.backdrop} ${transparentBackdrop && styles.transparent}`}
+        className={`absolute inset-0 z-10 bg-opacity-50 h-full ${
+          transparentBackdrop ? "bg-transparent" : "bg-gray-600"
+        }`}
       />
       <motion.div
         {...modalAnimations}
-        className={`${styles.modal} ${size && styles[`size-${size}`]}`}
+        className={`z-20 shadow-lg rounded-xl bg-primary relative overflow-hidden ${modalClasses}`}
         style={{ ...translationStyles, pointerEvents: isPresent ? "auto" : "none" }}
       >
         {header != "none" && <ModalHeader {...header} />}
@@ -78,15 +77,13 @@ const Modal = ({
               scale: 1.4,
               transition: { duration: 0.3 },
             }}
-            className={styles.closeButton}
+            className="absolute right-0 top-0 px-4 py-2 text-gray-700 text-2xl"
             onClick={onCloseModal}
           >
             &times;
           </motion.button>
         )}
-        <div className={`${styles.body} ${withPaddingInBody && styles.withPadding}`}>
-          {children}
-        </div>
+        <div className={`${withPaddingInBody && "p-4"}`}>{children}</div>
       </motion.div>
     </div>
   );
@@ -94,12 +91,12 @@ const Modal = ({
 
 const ModalHeader = ({ title, subtitle, icon }: ModalHeaderProps) => {
   return (
-    <div className={styles.header}>
-      <div className={styles.titleContainer}>
-        {icon && <FontAwesomeIcon className={styles.icon} icon={icon} />}
-        <h3 className={styles.title}>{title}</h3>
+    <div className="bg-secondary w-full p-4 relative">
+      <div className="flex flex-row items-center gap-2">
+        {icon && <FontAwesomeIcon className="text-gray-900" icon={icon} />}
+        <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
       </div>
-      {subtitle && <h4 className={styles.subtitle}>{subtitle}</h4>}
+      {subtitle && <h4 className="text-lg text-gray-700">{subtitle}</h4>}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import Modal from "./ui/modal";
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { LegendModalProps } from "@/ts/types/components/legend_modal.types";
 
-import animations from "@/styles/components/legend_modal.animations";
+import animations from "@/components/legend_modal.animations";
 
 const LegendModal = ({ onCloseModal }: LegendModalProps) => {
   return (

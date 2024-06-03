@@ -1,7 +1,7 @@
 import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { Area, Place, PlaceType, Service } from "../models.types";
 
-export type MapState = {
+export type HomeState = {
   places: Array<Place>;
   areas: Array<Area>;
   placeTypes: Array<PlaceType>;
@@ -11,9 +11,9 @@ export type MapState = {
   placeFilterType: PlaceFilterType;
 };
 
-export type MapActions = {
+export type HomeActions = {
   filterPlaces: (placesFilterType: PlaceFilterType, filtersList: Array<number>) => void;
   restoreFilters: () => void;
 };
 
-export type MapStore = MapState & MapActions;
+export type HomeStore = HomeState & HomeActions;

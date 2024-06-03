@@ -1,10 +1,10 @@
 "use client";
 
-import { useMapStore } from "@/stores/map/map.hooks";
+import { useHomeStore } from "@/stores/home/home.hooks";
 import React from "react";
 
 const Places = () => {
-  const filteredPlaces = useMapStore((state) => state.filteredPlaces);
+  const filteredPlaces = useHomeStore((state) => state.filteredPlaces);
 
   return (
     <div className="w-full overflow-y-scroll">

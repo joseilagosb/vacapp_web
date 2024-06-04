@@ -7,7 +7,7 @@ import { TextButton } from "./ui/button";
 
 import { PlaceFiltersStoreProvider } from "@/providers/place_filters_provider";
 
-import { useMapStore } from "@/stores/map/map.hooks";
+import { useHomeStore } from "@/stores/home/home.hooks";
 import { usePlaceFiltersStore } from "@/stores/place_filters/place_filters.hooks";
 
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
@@ -15,10 +15,8 @@ import { PlaceFiltersModalProps } from "@/ts/types/components/place_filters_moda
 import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
 
-import styles from "../styles/components/place_filters_dialog.module.scss";
-
 const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFiltersModalProps) => {
-  const { placeTypes, services } = useMapStore(
+  const { placeTypes, services } = useHomeStore(
     useShallow((state) => ({ placeTypes: state.placeTypes, services: state.services }))
   );
   const items = useMemo(() => {
@@ -57,8 +55,8 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
       }}
       onCloseModal={onCloseModal}
     >
-      <div className={styles.placeFiltersModal}>
-        <div className={styles.itemsList}>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap gap-2">
           {items.map((item) => (
             <TextButton
               key={`place-filters-item-${item.id}`}
@@ -68,7 +66,7 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
             />
           ))}
         </div>
-        <div className={styles.actionButtons}>
+        <div className="flex justify-end gap-2">
           <TextButton
             onClick={() => selectMultipleFilters(items.map((item) => item.id))}
             size={ButtonSize.Small}

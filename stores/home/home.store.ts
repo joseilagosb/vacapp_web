@@ -1,8 +1,8 @@
 import { PlaceFilterType } from "@/ts/enums/stores.types";
-import { MapState, MapStore } from "@/ts/types/stores/map.types";
+import { HomeState, HomeStore } from "@/ts/types/stores/home.types";
 import { createStore } from "zustand";
 
-export const initialMapState: MapState = {
+export const initialHomeState: HomeState = {
   places: [],
   areas: [],
   placeTypes: [],
@@ -12,8 +12,8 @@ export const initialMapState: MapState = {
   placeFilterType: PlaceFilterType.None,
 };
 
-export const createMapStore = (initialState: MapState = initialMapState) => {
-  return createStore<MapStore>()((set, get) => ({
+export const createHomeStore = (initialState: HomeState = initialHomeState) => {
+  return createStore<HomeStore>()((set, get) => ({
     ...initialState,
     filterPlaces: (placeFilterType, filtersList) =>
       set((state) => {

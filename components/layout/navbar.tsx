@@ -7,19 +7,21 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 import ThemeSwitch from "../theme_switch";
 
-import styles from "../../styles/components/layout/navbar.module.scss";
-import animations from "../../styles/components/layout/navbar.animations";
+import animations from "./navbar.animations";
 
 const Navbar = () => {
   return (
-    <motion.div className={styles.navbar} {...animations.navbar}>
-      <div className={styles.menu}>
+    <motion.div
+      className="w-full h-16 top-0 py-2 bg-primary flex items-center justify-between gap-2 px-4"
+      {...animations.navbar}
+    >
+      <div className="cursor-pointer text-2xl">
         <FontAwesomeIcon icon={faBars} />
       </div>
-      <div className={styles.header}>
-        <h1 className={styles.title}>VACAPP</h1>
+      <div>
+        <h1 className="uppercase tracking-widest">VACAPP</h1>
       </div>
-      <div className={styles.actionButtons}>
+      <div>
         <ThemeSwitch />
       </div>
     </motion.div>

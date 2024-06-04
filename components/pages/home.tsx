@@ -14,7 +14,7 @@ import PlaceFiltersModal from "../place_filters_modal";
 import NoPlacesFoundModal from "../no_places_found_modal";
 import LegendModal from "../legend_modal";
 
-import { useMapStore } from "@/stores/map/map.hooks";
+import { useHomeStore } from "@/stores/home/home.hooks";
 
 import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { ButtonColor } from "@/ts/enums/components/button.enums";
@@ -25,7 +25,7 @@ const HomePage = () => {
   const [isLegendModalVisible, setIsLegendModalVisible] = useState(false);
   const [selectedFilterType, setSelectedFilterType] = useState(PlaceFilterType.None);
 
-  const { filterPlaces, filteredPlaces, placeFilterType, restoreFilters } = useMapStore(
+  const { filterPlaces, filteredPlaces, placeFilterType, restoreFilters } = useHomeStore(
     useShallow((state) => ({
       placeFilterType: state.placeFilterType,
       filterPlaces: state.filterPlaces,

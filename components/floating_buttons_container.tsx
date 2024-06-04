@@ -1,9 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
-import styles from "../styles/components/floating_buttons_container.module.scss";
-
 const FloatingButtonsContainer = ({ children }: PropsWithChildren) => {
-  return <div className={styles.floatingButtonsContainer}>{children}</div>;
+  return <div className="absolute bottom-8 right-8 flex flex-col gap-2">{children}</div>;
 };
 
 export default FloatingButtonsContainer;

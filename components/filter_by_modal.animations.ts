@@ -7,7 +7,7 @@ const animations: AnimationsObject = {
     },
     animate: {
       opacity: 1,
-      y: [95, 0],
+      y: [60, 0],
     },
     exit: {
       opacity: 0,

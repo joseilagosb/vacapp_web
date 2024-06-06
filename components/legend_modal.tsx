@@ -1,24 +1,23 @@
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
+import { motion, AnimatePresence } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLink, faInfoCircle, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "./ui/modal";
 
 import Tabs from "./ui/tabs";
-import animations from "@/components/legend_modal.animations";
+import Button, { TextButton } from "./ui/button";
+
+import { useHomeStore } from "@/stores/home/home.hooks";
 
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { LegendModalProps, LegendModalTab } from "@/ts/types/components/legend_modal.types";
 import { Tab } from "@/ts/types/components/tabs.types";
-import { useHomeStore } from "@/stores/home/home.hooks";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExternalLink,
-  faInfoCircle,
-  faLocationDot,
-  faLocationPin,
-  faLocationPinLock,
-} from "@fortawesome/free-solid-svg-icons";
-import Button, { TextButton } from "./ui/button";
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
+
+import animations from "@/components/legend_modal.animations";
 
 const LegendModal = ({ onCloseModal }: LegendModalProps) => {
   const [selectedTab, setSelectedTab] = useState<LegendModalTab>("areas");
@@ -29,15 +28,31 @@ const LegendModal = ({ onCloseModal }: LegendModalProps) => {
     { slug: "other", title: "Otros", onClick: () => setSelectedTab("other") },
   ];
 
-  const renderTab = () => {
+  const renderContent = () => {
+    let selectedSection;
     switch (selectedTab) {
       case "areas":
-        return <AreasShowcase />;
+        selectedSection = <AreasOverview />;
+        break;
       case "symbols":
+        selectedSection = <SymbolsOverview />;
+        break;
       case "other":
+        selectedSection = <OtherSymbols />;
+        break;
       default:
-        return <></>;
+        selectedSection = <></>;
+        break;
     }
+    return (
+      <motion.div
+        className="flex flex-col h-full"
+        key={`legend_modal_content__${selectedTab}`}
+        {...animations.section}
+      >
+        {selectedSection}
+      </motion.div>
+    );
   };
 
   return (
@@ -49,50 +64,78 @@ const LegendModal = ({ onCloseModal }: LegendModalProps) => {
       translation={{ x: 32, y: 160 }}
       transparentBackdrop
     >
-      <div className="h-96">
+      <div className="h-96 flex flex-col">
         <Tabs containerId="legend-modal" tabs={legendModalTabs} currentTab={selectedTab} />
-        <div className="pt-4 pb-2">{renderTab()}</div>
+        <div className="pt-4 pb-2 overflow-y-auto">
+          <AnimatePresence mode="wait">{renderContent()}</AnimatePresence>
+        </div>
       </div>
     </Modal>
   );
 };
 
-const AreasShowcase = () => {
-  const areas = useHomeStore((state) => state.areas);
+const AreasOverview = () => {
+  const router = useRouter();
+  const { areas, moveCameraToArea } = useHomeStore(
+    useShallow((state) => ({ moveCameraToArea: state.moveCameraToArea, areas: state.areas }))
+  );
+  const [onlyShowingOpenPlaces, setOnlyShowingOpenPlaces] = useState(true);
+
+  const filteredAreas = onlyShowingOpenPlaces ? areas.filter((area) => +area.id > 4) : areas;
 
   return (
-    <ul className="flex flex-col gap-4 overflow-y-auto">
-      <div className="flex items-center gap-3 p-4 border-t-4 border-secondary bg-tertiary dark:bg-black-600 dark:text-white">
-        <FontAwesomeIcon icon={faInfoCircle} />
-        <span className="text-sm font-medium">
-          Mostrando solo los sectores con recintos abiertos.
-        </span>
-        <TextButton
-          size={ButtonSize.Small}
-          color={ButtonColor.Secondary}
-          onClick={() => {}}
-          text="Mostrar todo"
-        />
-      </div>
-      {areas.map((area) => (
-        <li key={`areas_showcase__${area.id}`} className="flex flex-row items-center gap-2">
-          <div className="bg-orange-400 w-4 h-4 rounded-full" />
-          <div className="flex flex-col grow">
-            <span className="font-bold">{area.area_name}</span>
-            <span className="text-sm font-italic">12 locales abiertos</span>
-          </div>
-          <div className="flex flex-row gap-1">
-            <Button size={ButtonSize.Small} onClick={() => {}} color={ButtonColor.Secondary}>
-              <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4" />
-            </Button>
-            <Button size={ButtonSize.Small} onClick={() => {}} color={ButtonColor.Secondary}>
-              <FontAwesomeIcon icon={faExternalLink} className="w-4 h-4" />
-            </Button>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <>
+      {onlyShowingOpenPlaces && (
+        <div className="flex items-center gap-3 p-4 border-t-4 border-secondary bg-tertiary dark:bg-black-600 dark:text-white mb-4">
+          <FontAwesomeIcon icon={faInfoCircle} />
+          <span className="text-sm font-medium">
+            Mostrando solo los sectores con recintos abiertos.
+          </span>
+          <TextButton
+            size={ButtonSize.Small}
+            color={ButtonColor.Secondary}
+            onClick={() => setOnlyShowingOpenPlaces(false)}
+            text="Mostrar todo"
+          />
+        </div>
+      )}
+      <ul className="flex flex-col gap-4 overflow-y-auto tiny-scrollbar">
+        {filteredAreas.map((area) => (
+          <li key={`areas_showcase__${area.id}`} className="flex flex-row items-center gap-2 pr-2">
+            <div className="bg-orange-400 w-4 h-4 rounded-full" />
+            <div className="flex flex-col grow">
+              <span className="font-bold">{area.area_name}</span>
+              <span className="text-sm font-italic">12 locales abiertos</span>
+            </div>
+            <div className="flex flex-row gap-1">
+              <Button
+                size={ButtonSize.Small}
+                onClick={() => moveCameraToArea(area)}
+                color={ButtonColor.Secondary}
+              >
+                <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4" />
+              </Button>
+              <Button
+                size={ButtonSize.Small}
+                onClick={() => router.push(`/areas/${area.id}`)}
+                color={ButtonColor.Secondary}
+              >
+                <FontAwesomeIcon icon={faExternalLink} className="w-4 h-4" />
+              </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   );
+};
+
+const SymbolsOverview = () => {
+  return <div>SymbolsOverview</div>;
+};
+
+const OtherSymbols = () => {
+  return <div>OtherSymbols</div>;
 };
 
 export default LegendModal;

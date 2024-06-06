@@ -26,7 +26,7 @@ const FilterByModal = ({ onCloseModal, onSelectedFilterType }: FilterByModalProp
           onClick={() => onSelectedFilterType(PlaceFilterType.PlaceTypes)}
           text="Por tipo de lugar"
         />
-        <div className="h-1 w-full bg-secondary" />
+        <div className="h-px w-full bg-secondary" />
         <TextButton
           size={ButtonSize.Small}
           onClick={() => onSelectedFilterType(PlaceFilterType.Services)}

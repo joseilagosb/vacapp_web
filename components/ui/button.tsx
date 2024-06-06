@@ -19,7 +19,7 @@ const Button = ({
   type,
   ...otherProps
 }: ButtonProps) => {
-  let buttonAnimations = getAnimationsObj(animations, defaultAnimations);
+  let buttonAnimations = getAnimationsObj(animations, defaultAnimations.button);
   const buttonClasses = getButtonClasses(color, size);
 
   return (

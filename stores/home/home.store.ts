@@ -1,5 +1,8 @@
 import { PlaceFilterType } from "@/ts/enums/stores.types";
+import { Area } from "@/ts/types/models.types";
 import { HomeState, HomeStore } from "@/ts/types/stores/home.types";
+import { calculateCenterOfCoordinates } from "@/utils/common";
+import { DefaultCameraPosition } from "@/utils/constants";
 import { createStore } from "zustand";
 
 export const initialHomeState: HomeState = {
@@ -10,10 +13,11 @@ export const initialHomeState: HomeState = {
   filteredPlaces: [],
   visiblePlaces: [],
   placeFilterType: PlaceFilterType.None,
+  cameraPosition: DefaultCameraPosition,
 };
 
 export const createHomeStore = (initialState: HomeState = initialHomeState) => {
-  return createStore<HomeStore>()((set, get) => ({
+  return createStore<HomeStore>()((set) => ({
     ...initialState,
     filterPlaces: (placeFilterType, filtersList) =>
       set((state) => {
@@ -36,5 +40,7 @@ export const createHomeStore = (initialState: HomeState = initialHomeState) => {
       }),
     restoreFilters: () =>
       set((state) => ({ filteredPlaces: state.places, placeFilterType: PlaceFilterType.None })),
+    moveCameraToArea: (area: Area) =>
+      set((_) => ({ cameraPosition: calculateCenterOfCoordinates(area.coordinates) })),
   }));
 };

@@ -9,11 +9,10 @@ export type Service = {
   service_description: string;
 };
 
+export type LatLng = { latitude: number; longitude: number };
 export type Coordinate = {
   id: string;
-  latitude: any;
-  longitude: any;
-};
+} & LatLng;
 
 export type Indicator = {
   id: string;

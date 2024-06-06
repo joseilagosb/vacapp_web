@@ -1,5 +1,5 @@
 import { PlaceFilterType } from "@/ts/enums/stores.types";
-import { Area, Place, PlaceType, Service } from "../models.types";
+import { Area, LatLng, Place, PlaceType, Service } from "../models.types";
 
 export type HomeState = {
   places: Array<Place>;
@@ -9,11 +9,13 @@ export type HomeState = {
   filteredPlaces: Array<Place>;
   visiblePlaces: Array<Place>;
   placeFilterType: PlaceFilterType;
+  cameraPosition: LatLng;
 };
 
 export type HomeActions = {
   filterPlaces: (placesFilterType: PlaceFilterType, filtersList: Array<number>) => void;
   restoreFilters: () => void;
+  moveCameraToArea: (area: Area) => void;
 };
 
 export type HomeStore = HomeState & HomeActions;

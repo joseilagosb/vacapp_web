@@ -19,6 +19,8 @@ import { useHomeStore } from "@/stores/home/home.hooks";
 import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { ButtonColor } from "@/ts/enums/components/button.enums";
 
+import animations from "./home.animations";
+
 const HomePage = () => {
   const [isPlaceFiltersModalVisible, setIsPlaceFiltersModalVisible] = useState(false);
   const [isFilterByModalVisible, setIsFilterByModalVisible] = useState(false);
@@ -44,6 +46,7 @@ const HomePage = () => {
             onClick={() => restoreFilters()}
             icon={faTimes}
             text="Restaurar"
+            animations={animations.floatingButton}
           />
         );
       case PlaceFilterType.None:
@@ -53,6 +56,7 @@ const HomePage = () => {
             onClick={() => setIsFilterByModalVisible(true)}
             icon={faFilter}
             text="Filtrar"
+            animations={animations.floatingButton}
           />
         );
     }
@@ -79,6 +83,7 @@ const HomePage = () => {
           icon={faMapSigns}
           onClick={() => setIsLegendModalVisible(true)}
           text="Símbolos"
+          animations={animations.floatingButton}
         />
         {renderFilterButton()}
       </FloatingButtonsContainer>

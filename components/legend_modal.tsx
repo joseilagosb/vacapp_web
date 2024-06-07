@@ -85,21 +85,25 @@ const AreasOverview = () => {
 
   return (
     <>
-      {onlyShowingOpenPlaces && (
-        <div className="flex items-center gap-3 p-4 border-t-4 border-secondary bg-tertiary dark:bg-black-600 dark:text-white mb-4">
-          <FontAwesomeIcon icon={faInfoCircle} />
-          <span className="text-sm font-medium">
-            Mostrando solo los sectores con recintos abiertos.
-          </span>
-          <TextButton
-            size={ButtonSize.Small}
-            color={ButtonColor.Secondary}
-            onClick={() => setOnlyShowingOpenPlaces(false)}
-            text="Mostrar todo"
-          />
-        </div>
-      )}
-      <ul className="flex flex-col gap-4 overflow-y-auto tiny-scrollbar">
+      <AnimatePresence initial={false}>
+        {onlyShowingOpenPlaces && (
+          <motion.div {...animations.onlyShowingOpenPlaces}>
+            <div className="flex items-center gap-3 p-4 border-t-8 border-secondary bg-tertiary dark:bg-black-600 dark:text-white mb-4">
+              <FontAwesomeIcon icon={faInfoCircle} />
+              <span className="text-sm font-medium">
+                Mostrando solo los sectores con recintos abiertos.
+              </span>
+              <TextButton
+                size={ButtonSize.Small}
+                color={ButtonColor.Secondary}
+                onClick={() => setOnlyShowingOpenPlaces(false)}
+                text="Mostrar todo"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <motion.ul className="flex flex-col gap-4 overflow-y-auto tiny-scrollbar bg-primary" layout>
         {filteredAreas.map((area) => (
           <li key={`areas_showcase__${area.id}`} className="flex flex-row items-center gap-2 pr-2">
             <div className="bg-orange-400 w-4 h-4 rounded-full" />
@@ -125,7 +129,7 @@ const AreasOverview = () => {
             </div>
           </li>
         ))}
-      </ul>
+      </motion.ul>
     </>
   );
 };

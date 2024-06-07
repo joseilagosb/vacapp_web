@@ -15,6 +15,8 @@ import { PlaceFiltersModalProps } from "@/ts/types/components/place_filters_moda
 import { PlaceFilterType } from "@/ts/enums/stores.types";
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
 
+import animations from "./place_filters_modal.animations";
+
 const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFiltersModalProps) => {
   const { placeTypes, services } = useHomeStore(
     useShallow((state) => ({ placeTypes: state.placeTypes, services: state.services }))
@@ -62,6 +64,11 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
               key={`place-filters-item-${item.id}`}
               color={isItemSelected(item.id) ? ButtonColor.Tertiary : ButtonColor.Secondary}
               onClick={() => toggleFilter(item.id)}
+              animations={{
+                ...animations.filtersItem,
+                initial: isItemSelected(item.id) ? "selected" : "default",
+                animate: isItemSelected(item.id) ? "selected" : "default",
+              }}
               text={item.name}
             />
           ))}
@@ -72,12 +79,14 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
             size={ButtonSize.Small}
             color={ButtonColor.Secondary}
             text="Todos"
+            animations={animations.actionButton}
           />
           <TextButton
             onClick={clearFilters}
             size={ButtonSize.Small}
             color={ButtonColor.Secondary}
             text="Ninguno"
+            animations={animations.actionButton}
           />
           <TextButton
             onClick={() => onClickFilter(filters)}
@@ -85,6 +94,7 @@ const PlaceFiltersModal = ({ onCloseModal, filterType, onClickFilter }: PlaceFil
             color={ButtonColor.Secondary}
             text="Filtrar"
             {...(filterButtonDisabled ? { disabled: true } : {})}
+            animations={animations.actionButton}
           />
         </div>
       </div>

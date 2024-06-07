@@ -29,6 +29,12 @@ const animations: AnimationsObject = {
       duration: 0.1,
     },
   },
+  onlyShowingOpenPlaces: {
+    initial: { height: 0 },
+    animate: { height: "auto" },
+    exit: { height: 0 },
+    transition: { type: "spring", duration: 0.6 },
+  },
 };
 
 export default animations;

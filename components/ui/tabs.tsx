@@ -1,32 +1,37 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 import Button from "./button";
+
 import { TabsProps } from "@/ts/types/components/tabs.types";
 
-const Tabs = <T,>({ containerId, currentTab, tabs }: TabsProps<T>) => {
-  const numberOfTabs = tabs.filter((tab) => !tab.hidden).length;
+import { getTabClassesObj } from "./tabs.classes";
 
+const Tabs = <T,>({ containerId, currentTab, tabs }: TabsProps<T>) => {
   return (
     <ul className="flex text-sm font-medium text-center rounded-lg shadow dark:divide-gray-700 dark:text-gray-400">
       {tabs.map((tab, tabIndex) => {
         const tabKey = `${containerId}__${tab.slug}`;
+        const tabClassesObj = getTabClassesObj(tabs.length, tabIndex);
+        const selected = currentTab === tab.slug;
+
         return (
-          <li key={tabKey} className="w-full focus-within:z-10">
+          <li key={tabKey} className="w-full">
             {tab.hidden ? (
               <></>
             ) : (
               <Button
                 onClick={tab.onClick}
                 aria-current="page"
-                className={`relative inline-block w-full p-4 text-gray-900 bg-tertiary focus:ring-4 focus:ring-secondary active focus:outline-none dark:text-white ${
-                  tabIndex === 0 && `rounded-s-lg`
-                } ${
-                  tabIndex === tabs.length - 1
-                    ? "rounded-e-lg"
-                    : "after:absolute after:right-0 after:top-[10px] after:bottom-[10px] after:content-[''] after:w-px after:bg-primary"
-                }`}
+                className={`relative size-full flex justify-center p-4 text-gray-900 dark:text-white ${tabClassesObj.borderRadius} ${tabClassesObj.after}`}
               >
-                {tab.title}
+                {selected && (
+                  <motion.div
+                    layoutId="selected"
+                    className={`absolute top-0 left-0 size-full bg-tertiary ${tabClassesObj.borderRadius}`}
+                  />
+                )}
+                <span className="z-20">{tab.title}</span>
               </Button>
             )}
           </li>

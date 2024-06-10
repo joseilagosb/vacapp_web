@@ -9,6 +9,16 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "vacapp-backend",
+        port: "3000",
+        pathname: "/images/places/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

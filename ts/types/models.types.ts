@@ -23,6 +23,13 @@ export type Indicator = {
   opinion_no: number;
 };
 
+export type PlaceWorkingDay = {
+  id: string;
+  day_of_week: number;
+  opening_time: string;
+  closing_time: string;
+};
+
 export type Place = {
   id: string;
   place_name: string;
@@ -34,6 +41,7 @@ export type Place = {
   place_type: PlaceType;
   services: Array<Service>;
   indicators: Array<Indicator>;
+  working_days: Array<PlaceWorkingDay>;
 };
 
 export type Area = {

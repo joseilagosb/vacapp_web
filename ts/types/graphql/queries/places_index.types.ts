@@ -1,0 +1,20 @@
+import { Exact } from "../utils.types";
+
+export type PlacesIndexQueryVariables = Exact<{ [key: string]: never }>;
+
+export type PlacesIndexQuery = {
+  __typename?: "Query";
+  allPlaces?: Array<{
+    __typename?: "Place";
+    id: string;
+    place_name?: string | null;
+    place_short_name?: string | null;
+    place_working_days?: Array<{
+      __typename?: "PlaceWorkingDay";
+      id: string;
+      day_of_week?: number | null;
+      opening_time?: string | null;
+      closing_time?: string | null;
+    } | null> | null;
+  }>;
+};

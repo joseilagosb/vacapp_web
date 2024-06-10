@@ -3,8 +3,11 @@
 import { useHomeStore } from "@/stores/home/home.hooks";
 import React from "react";
 import { useShallow } from "zustand/react/shallow";
+import Button from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const Places = () => {
+  const router = useRouter();
   const { filteredPlaces, cameraPosition } = useHomeStore(
     useShallow((state) => ({
       cameraPosition: state.cameraPosition,
@@ -13,9 +16,12 @@ const Places = () => {
   );
 
   return (
-    <div className="w-full overflow-y-scroll">
+    <div className="w-full overflow-y-auto">
       <div className="flex flex-row">
         <div className="w-1/2">
+          <div className="py-2">
+            <Button onClick={() => router.push("/places")}>Go to places index</Button>
+          </div>
           {filteredPlaces.map((place) => (
             <div key={place.id}>
               #{place?.id}. {place?.place_name}

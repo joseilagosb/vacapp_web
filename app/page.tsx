@@ -1,12 +1,13 @@
-import { getUrqlClient } from "@/services/urql";
 import { registerUrql } from "@urql/next/rsc";
+import { getUrqlClient } from "@/services/urql";
 
 import { mapViewDataQuery } from "@/graphql/map_view_data/map_view_data";
 
 import HomePage from "@/components/pages/home";
+
 import { HomeStoreProvider } from "@/providers/home_store_provider";
 
-const { getClient } = registerUrql(getUrqlClient);
+export const { getClient } = registerUrql(getUrqlClient);
 
 export default async function Home() {
   const { data: mapViewData, error } = await mapViewDataQuery(getClient);

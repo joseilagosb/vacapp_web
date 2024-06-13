@@ -1,56 +1,43 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import React, { CSSProperties, ChangeEvent, useState } from "react";
+import { useTheme } from "next-themes";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
+import FiltersForm from "../places/filters_form";
+import PlacesList from "../places/places_list";
 
+import { Theme } from "@/ts/enums/constants.enums";
 import { PlacesPageProps } from "@/ts/types/components/places_page.types";
 
-import animations from "./places.animations";
-
 const PlacesPage = ({ places }: PlacesPageProps) => {
-  const router = useRouter();
+  const [inputValue, setInputValue] = useState("");
+  const { theme } = useTheme();
+
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const onClickClearInput = () => {
+    setInputValue("");
+  };
+
   return (
-    <section className="overflow-y-auto w-full">
-      <motion.div
-        className="p-4 md:p-8 grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 overflow-y-auto"
-        {...animations.placeIndex}
-      >
-        {places?.map((place) => {
-          return (
-            <motion.article
-              key={place.id}
-              className="relative rounded-md shadow-lg hover:shadow-sm overflow-hidden bg-primary cursor-pointer select-none h-60"
-              onClick={() => router.push(`/places/${place.id}`)}
-              {...animations.place}
-            >
-              <div className="relative w-full h-2/3">
-                <Image
-                  src={`http://vacapp-backend:3000/images/places/${place.id}.png`}
-                  alt={place.place_short_name!}
-                  fill
-                  draggable={false}
-                  objectFit="cover"
-                />
-              </div>
-              <div className="h-1/3 flex flex-col px-4 justify-center gap-1">
-                <h3 className="text-xl font-bold dark:text-white">{place.place_short_name}</h3>
-                <div className="flex flex-row items-center self-start gap-1 bg-secondary p-1 rounded-lg">
-                  <FontAwesomeIcon icon={faClock} />
-                  <span className="text-sm shadow">
-                    {place.place_working_days![0]!.opening_time} -{" "}
-                    {place.place_working_days![0]!.closing_time}
-                  </span>
-                </div>
-              </div>
-            </motion.article>
-          );
-        })}
-      </motion.div>
+    <section
+      className="bg-gradient-radial overflow-y-auto w-full h-full"
+      style={
+        {
+          "--tw-gradient-stops": `125% 125% at 50% 100%, ${
+            theme === Theme.Dark ? "black" : "white"
+          } 50%, var(--primary-color)`,
+        } as CSSProperties
+      }
+    >
+      <FiltersForm
+        inputValue={inputValue}
+        onChangeInput={onChangeInput}
+        onClickClearInput={onClickClearInput}
+      />
+      <PlacesList places={places} currentFilter={inputValue} />
     </section>
   );
 };

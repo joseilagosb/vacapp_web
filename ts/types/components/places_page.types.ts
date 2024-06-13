@@ -1,5 +1,5 @@
-import { PlacesIndexQuery } from "../graphql/queries/places_index.types";
+import { Place } from "../graphql/schemas.types";
 
 export type PlacesPageProps = {
-  places: PlacesIndexQuery["allPlaces"];
+  places: Array<Place>;
 };

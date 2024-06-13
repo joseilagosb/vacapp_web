@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 const config: Config = {
   content: [
@@ -25,6 +26,10 @@ const config: Config = {
     },
   },
   darkMode: ["selector", '[data-theme="dark"]'],
-  plugins: [],
+  plugins: [
+    require("tailwindcss/plugin")((api: PluginAPI) => {
+      api.addVariant("search-cancel", "&::-webkit-search-cancel-button");
+    }),
+  ],
 };
 export default config;

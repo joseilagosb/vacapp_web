@@ -1,19 +1,7 @@
 import { AnimationsObject } from "@/ts/types/constants.types";
 
 const animations: AnimationsObject = {
-  placeIndex: {
-    variants: {
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.1,
-        },
-      },
-    },
-    initial: "hidden",
-    animate: "visible",
-  },
-  place: {
+  placeCard: {
     variants: {
       hidden: {
         y: "20px",

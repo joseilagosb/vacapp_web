@@ -19,7 +19,7 @@ const PlacesList = ({ places, currentFilter }: PlacesListProps) => {
 
   return (
     <motion.div
-      className="p-4 md:p-8 grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 overflow-y-auto"
+      className="grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 overflow-y-auto pt-3 pb-4 px-4 md:pb-8 md:px-8"
       {...animations.placesList}
     >
       {filteredPlaces.map((place) => (

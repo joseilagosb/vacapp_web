@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { createPortal } from "react-dom";
 import { useEventListener } from "usehooks-ts";
 import { motion, useIsPresent } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +14,7 @@ import defaultAnimations from "./modal.animations";
 import { getAnimationsObj } from "@/utils/common";
 
 const Modal = ({
-  position = ModalPosition.Center,
+  position = ModalPosition.TopLeft,
   size = ModalSize.Medium,
   onCloseModal = () => {},
   hasCloseButton = false,
@@ -56,8 +57,8 @@ const Modal = ({
   const translationStyles =
     translation != "none" ? { margin: `${translation.y}px ${translation.x}px` } : {};
 
-  return (
-    <div className={`fixed inset-0 overflow-hidden h-full flex ${modalContainerClasses}`}>
+  return createPortal(
+    <div className={`absolute inset-0 overflow-hidden h-full flex ${modalContainerClasses}`}>
       <motion.div
         ref={modalBackdropRef}
         {...defaultAnimations.modalBackdrop}
@@ -67,7 +68,7 @@ const Modal = ({
       />
       <motion.div
         {...modalAnimations}
-        className={`z-20 shadow-lg rounded-xl bg-primary relative overflow-hidden ${modalClasses}`}
+        className={`absolute z-20 shadow-lg rounded-xl bg-primary overflow-hidden ${modalClasses}`}
         style={{ ...translationStyles, pointerEvents: isPresent ? "auto" : "none" }}
       >
         {header != "none" && <ModalHeader {...header} />}
@@ -85,7 +86,8 @@ const Modal = ({
         )}
         <div className={`${withPaddingInBody && "p-4"}`}>{children}</div>
       </motion.div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

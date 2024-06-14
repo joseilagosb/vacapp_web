@@ -17,4 +17,14 @@ export type PlacesIndexQuery = {
       closing_time?: string | null;
     } | null> | null;
   }>;
+  allPlaceTypes?: Array<{
+    __typename?: "PlaceType";
+    id: string;
+    place_type_name?: string | null;
+  }>;
+  allServices?: Array<{
+    __typename?: "Service";
+    id: string;
+    service_name?: string | null;
+  }>;
 };

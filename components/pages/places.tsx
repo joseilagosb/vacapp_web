@@ -3,13 +3,15 @@
 import React, { CSSProperties, ChangeEvent, useState } from "react";
 import { useTheme } from "next-themes";
 
-import FiltersForm from "../places/filters_form";
+import Separator from "../ui/separator";
+import SearchField from "../places/search_field";
 import PlacesList from "../places/places_list";
+import SortAndFilters from "../places/sort_and_filters";
 
 import { Theme } from "@/ts/enums/constants.enums";
 import { PlacesPageProps } from "@/ts/types/components/places_page.types";
 
-const PlacesPage = ({ places }: PlacesPageProps) => {
+const PlacesPage = ({ places, placeTypes, services }: PlacesPageProps) => {
   const [inputValue, setInputValue] = useState("");
   const { theme } = useTheme();
 
@@ -32,11 +34,15 @@ const PlacesPage = ({ places }: PlacesPageProps) => {
         } as CSSProperties
       }
     >
-      <FiltersForm
-        inputValue={inputValue}
-        onChangeInput={onChangeInput}
-        onClickClearInput={onClickClearInput}
-      />
+      <div className="max-w-full pt-4 px-4 md:pt-8 md:px-8 mt-8">
+        <SearchField
+          inputValue={inputValue}
+          onChangeInput={onChangeInput}
+          onClickClearInput={onClickClearInput}
+        />
+        <Separator from="10%" to="90%" />
+        <SortAndFilters placeTypes={placeTypes} services={services} />
+      </div>
       <PlacesList places={places} currentFilter={inputValue} />
     </section>
   );

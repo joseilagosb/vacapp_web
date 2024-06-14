@@ -14,15 +14,15 @@ export default async function Page() {
     throw new Error(error!.message);
   }
 
-  const allPlaces = placesIndex.allPlaces;
+  const { allPlaces, allPlaceTypes, allServices } = placesIndex;
 
-  if (!allPlaces) {
+  if (!allPlaces || !allPlaceTypes || !allServices) {
     throw new Error(error!.message);
   }
 
   return (
     <main className="h-[calc(100vh - 64px)] flex flex-col absolute top-16 bottom-0 left-0 right-0 items-center justify-start">
-      <PlacesPage places={allPlaces} />
+      <PlacesPage places={allPlaces} placeTypes={allPlaceTypes} services={allServices} />
     </main>
   );
 }

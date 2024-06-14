@@ -16,5 +16,15 @@ export const PlacesIndexDocument = gql`
         closing_time
       }
     }
+    allPlaceTypes {
+      __typename
+      id
+      place_type_name
+    }
+    allServices {
+      __typename
+      id
+      service_name
+    }
   }
 `;

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, RefObject } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";

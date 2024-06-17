@@ -19,10 +19,19 @@ RUN \
 COPY app ./app
 COPY components ./components
 COPY graphql ./graphql
+COPY hooks ./hooks
 COPY services ./services
+COPY providers ./providers
 COPY public ./public
+COPY stores ./stores
+COPY ts ./ts
+COPY utils ./utils
+COPY middleware.ts .
 COPY next.config.mjs .
 COPY tsconfig.json .
+COPY graphql.config.yml .
+COPY postcss.config.mjs .
+COPY tailwind.config.ts .
 
 # Environment variables must be present at build time
 # https://github.com/vercel/next.js/discussions/14030

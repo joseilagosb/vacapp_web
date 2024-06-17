@@ -15,6 +15,7 @@ RUN \
 COPY app ./app
 COPY components ./components
 COPY graphql ./graphql
+COPY hooks ./hooks
 COPY services ./services
 COPY providers ./providers
 COPY public ./public

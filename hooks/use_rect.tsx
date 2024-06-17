@@ -1,27 +1,31 @@
 import { RefObject, useEffect, useState } from "react";
-import { useWindowSize } from "usehooks-ts";
+import { useEventListener, useWindowSize } from "usehooks-ts";
 
-type Rect = {
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
-  width?: number;
-  height?: number;
-};
+import { useScrollParent } from "./use_scroll_parent";
 
-export const useRect = (ref: RefObject<HTMLElement>) => {
+import { Rect } from "@/ts/types/utils.types";
+
+// Retorna la ubicación y el tamaño de un elemento en el DOM
+// Los valores se actualizan automáticamente al redimensionar la pantalla o al scrollear la página
+export const useRect = (element: RefObject<HTMLElement>) => {
   const [rect, setRect] = useState<Rect>({});
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
-  useEffect(() => {
-    if (!ref.current) {
-      return;
+  const updateRect = () => {
+    if (element && element.current) {
+      const { top, left, width, height } = element.current.getBoundingClientRect();
+      setRect({ top, left, right: windowWidth - left, bottom: windowHeight - top, width, height });
     }
+  };
 
-    const { top, left, width, height } = ref.current.getBoundingClientRect();
-    setRect({ top, left, right: windowWidth - left, bottom: windowHeight - top, width, height });
-  }, []);
+  const scrollParent = useScrollParent(element);
+
+  useEventListener("resize", updateRect);
+  useEventListener("scroll", updateRect, scrollParent);
+
+  useEffect(() => {
+    updateRect();
+  }, [element]);
 
   return {
     position: {

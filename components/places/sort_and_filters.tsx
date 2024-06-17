@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 import Dropdown from "../ui/dropdown";
-import { PlaceType, Service } from "@/ts/types/graphql/schemas.types";
 import Checkbox from "../form/checkbox";
+
+import { PlaceType, Service } from "@/ts/types/graphql/schemas.types";
 
 type SortAndFilterProps = {
   placeTypes: Array<PlaceType>;
@@ -43,14 +44,16 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
       <div>sort</div>
       <div className="flex flex-row gap-2">
         <Dropdown id="place-types" title="Tipo de lugar">
-          {placeTypesArray.map((item, itemIndex) => (
-            <Checkbox
-              name={`place-types-modal-${itemIndex}`}
-              label={item}
-              checked={checkedPlaceTypes[itemIndex]}
-              onChange={() => onCheckedPlaceType(itemIndex)}
-            />
-          ))}
+          <div className="">
+            {placeTypesArray.map((item, itemIndex) => (
+              <Checkbox
+                name={`place-types-modal-${itemIndex}`}
+                label={item}
+                checked={checkedPlaceTypes[itemIndex]}
+                onChange={() => onCheckedPlaceType(itemIndex)}
+              />
+            ))}
+          </div>
         </Dropdown>
         <Dropdown id="services" title="Servicio">
           {servicesArray.map((item, itemIndex) => (
@@ -66,7 +69,5 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
     </div>
   );
 };
-
-
 
 export default SortAndFilters;

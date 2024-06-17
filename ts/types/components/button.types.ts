@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from "react";
+import { ReactNode } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
@@ -9,6 +9,7 @@ export type ButtonProps = {
   onClick: () => void;
   size?: ButtonSize;
   color?: ButtonColor;
+  hoverColor?: ButtonColor;
   children: ReactNode;
   animations?: ComponentAnimations;
 } & HTMLMotionProps<"button">;
@@ -18,6 +19,9 @@ export type IconButtonProps = {
   text: string;
 } & Omit<ButtonProps, "children">;
 
+export type TextButtonAlignment = "left" | "center" | "right";
+
 export type TextButtonProps = {
   text: string;
+  alignment?: TextButtonAlignment;
 } & Omit<ButtonProps, "children">;

@@ -20,17 +20,19 @@ const FilterByModal = ({ onCloseModal, onSelectedFilterType }: FilterByModalProp
       translation={{ x: 32, y: 95 }}
       transparentBackdrop
     >
-      <div className="flex flex-col items-end gap-4">
+      <div className="flex flex-col gap-4">
         <TextButton
           size={ButtonSize.Small}
           onClick={() => onSelectedFilterType(PlaceFilterType.PlaceTypes)}
           text="Por tipo de lugar"
+          alignment="right"
         />
         <div className="h-px w-full bg-secondary" />
         <TextButton
           size={ButtonSize.Small}
           onClick={() => onSelectedFilterType(PlaceFilterType.Services)}
           text="Por servicios"
+          alignment="right"
         />
       </div>
     </Modal>

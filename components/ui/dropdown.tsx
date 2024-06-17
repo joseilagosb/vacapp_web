@@ -15,7 +15,13 @@ import { DropdownProps } from "@/ts/types/components/dropdown.types";
 
 import animations from "./dropdown.animations";
 
-const Dropdown = ({ id, title, children }: DropdownProps) => {
+const Dropdown = ({
+  id,
+  title,
+  size = ModalSize.Small,
+  alignment = "left",
+  children,
+}: DropdownProps) => {
   const dropdownKey = `dropdown-${id}`;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -23,9 +29,12 @@ const Dropdown = ({ id, title, children }: DropdownProps) => {
   const dropdownModalSpacing = { y: 5 };
 
   const dropdownModalPosition = {
-    x: dropdownPosition.right - dropdownSize.width,
+    x: alignment === "left" ? dropdownPosition.left : dropdownPosition.right - dropdownSize.width,
     y: dropdownPosition.top + dropdownSize.height + dropdownModalSpacing.y,
   };
+
+  const dropdownModalAlignment =
+    alignment === "left" ? ModalPosition.TopLeft : ModalPosition.TopRight;
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
@@ -50,8 +59,8 @@ const Dropdown = ({ id, title, children }: DropdownProps) => {
       <AnimatePresence>
         {isDropdownVisible && (
           <Modal
-            position={ModalPosition.TopRight}
-            size={ModalSize.Small}
+            position={dropdownModalAlignment}
+            size={size}
             transparentBackdrop
             onCloseModal={onCloseDropdownModal}
             translation={dropdownModalPosition}

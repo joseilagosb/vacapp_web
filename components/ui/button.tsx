@@ -7,12 +7,13 @@ import { getAnimationsObj } from "@/utils/common";
 import { ButtonProps, IconButtonProps, TextButtonProps } from "@/ts/types/components/button.types";
 import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
 
-import { getButtonClasses } from "./button.classes";
+import { getButtonClasses, getTextButtonClasses } from "./button.classes";
 import defaultAnimations from "./button.animations";
 
 const Button = ({
   onClick,
   color = ButtonColor.Primary,
+  hoverColor = color,
   size = ButtonSize.Medium,
   children,
   animations = "default",
@@ -20,7 +21,7 @@ const Button = ({
   ...otherProps
 }: ButtonProps) => {
   let buttonAnimations = getAnimationsObj(animations, defaultAnimations.button);
-  const buttonClasses = getButtonClasses(color, size);
+  const buttonClasses = getButtonClasses(color, hoverColor, size);
 
   return (
     <motion.button
@@ -45,8 +46,9 @@ export const IconButton = ({ icon, text, ...otherProps }: IconButtonProps) => {
   return <Button children={newChildren} {...otherProps} />;
 };
 
-export const TextButton = ({ text, ...otherProps }: TextButtonProps) => {
-  const newChildren = <span>{text}</span>;
+export const TextButton = ({ text, alignment = "center", ...otherProps }: TextButtonProps) => {
+  const textButtonClasses = getTextButtonClasses(alignment);
+  const newChildren = <span className={`block ${textButtonClasses}`}>{text}</span>;
 
   return <Button children={newChildren} {...otherProps} />;
 };

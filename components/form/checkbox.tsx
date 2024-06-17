@@ -1,25 +1,19 @@
+import { CheckboxProps } from "@/ts/types/components/form.types";
 import React from "react";
-
-type CheckboxProps = {
-  name: string;
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-};
 
 const Checkbox = ({ name, label, checked, onChange }: CheckboxProps) => {
   const checkboxId = `checkbox-${name}`;
 
   return (
-    <label className="flex flex-row">
+    <label className="flex flex-row items-center px-2 py-1 hover:bg-primary rounded cursor-pointer">
       <input
         id={checkboxId}
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="h-4 w-4 rounded border-gray-300"
+        className="checkbox"
       />
-      <span className="ml-3 min-w-0 dark:text-white">{label}</span>
+      <span className="ml-3 min-w-0 text-gray-500 dark:text-white">{label}</span>
     </label>
   );
 };

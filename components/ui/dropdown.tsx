@@ -9,7 +9,7 @@ import { useRect } from "@/hooks/use_rect";
 import Modal from "./modal";
 import Button from "./button";
 
-import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { ModalColor, ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 
 import { DropdownProps } from "@/ts/types/components/dropdown.types";
 
@@ -18,7 +18,8 @@ import animations from "./dropdown.animations";
 const Dropdown = ({
   id,
   title,
-  size = ModalSize.Small,
+  modalSize = ModalSize.Small,
+  modalColor = ModalColor.Primary,
   alignment = "left",
   children,
 }: DropdownProps) => {
@@ -60,7 +61,8 @@ const Dropdown = ({
         {isDropdownVisible && (
           <Modal
             position={dropdownModalAlignment}
-            size={size}
+            size={modalSize}
+            color={modalColor}
             transparentBackdrop
             onCloseModal={onCloseDropdownModal}
             translation={dropdownModalPosition}

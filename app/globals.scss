@@ -17,6 +17,62 @@
 body {
 }
 
+@layer components {
+  .checkbox {
+    @apply relative float-left h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-gray-500 border-[0.125rem] border-solid outline-none;
+
+    &:checked {
+      @apply border-tertiary bg-tertiary;
+
+      &:before {
+        @apply opacity-[0.16];
+      }
+      
+      &:after {
+        @apply absolute -mt-px ms-[0.25rem] block h-[0.8125rem] w-[0.375rem] rotate-45 border-[0.125rem] border-l-0 border-t-0 border-solid border-white bg-transparent content-[''];
+      }
+    }
+
+    &:checked:focus {
+      &:before {
+        @apply scale-100 transition-[box-shadow_0.2s,transform_0.2s];
+      }
+
+      &:after {
+        @apply -mt-px ms-[0.25rem] h-[0.8125rem] w-[0.375rem] rotate-45 rounded-none border-[0.125rem] border-l-0 border-t-0 border-solid border-white bg-transparent;
+      }
+    }
+
+    &:hover {
+      @apply cursor-pointer;
+
+      &:before {
+        @apply opacity-[0.04] shadow-black/60;
+      }
+    }
+
+    &:focus {
+      @apply shadow-none transition-[border-color_0.2s];
+
+      &:before {
+        @apply scale-100 opacity-[0.12] shadow-black/60 transition-[box-shadow_0.2s,transform_0.2s];
+      }
+
+      &:after {
+        @apply absolute z-[1] block h-[0.875rem] w-[0.875rem] rounded-[0.125rem] content-[''];
+      }
+    }
+
+    &:before {
+      @apply pointer-events-none absolute h-[0.875rem] w-[0.875rem] scale-0 rounded-full bg-transparent opacity-0 shadow-transparent content-[''];
+    }
+
+    [dir=“rtl”] & {
+      @apply float-right;
+    }
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

@@ -5,6 +5,12 @@ export enum ModalSize {
   Large = "lg",
 }
 
+export enum ModalColor {
+  Primary = "primary",
+  Secondary = "secondary",
+  Tertiary = "tertiary",
+}
+
 export enum ModalPosition {
   TopLeft = "topLeft",
   TopRight = "topRight",

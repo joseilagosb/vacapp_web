@@ -2,17 +2,17 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { getAnimationsObj } from "@/utils/common";
+import { getAnimationsObject } from "@/utils/animations";
 
 import { ButtonProps, IconButtonProps, TextButtonProps } from "@/ts/types/components/button.types";
-import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
 
 import { getButtonClasses, getTextButtonClasses } from "./button.classes";
-import defaultAnimations from "./button.animations";
 
 const Button = ({
   onClick,
-  color = ButtonColor.Primary,
+  color = ComponentColor.Primary,
   hoverColor = color,
   size = ButtonSize.Medium,
   children,
@@ -20,8 +20,8 @@ const Button = ({
   type,
   ...otherProps
 }: ButtonProps) => {
-  let buttonAnimations = getAnimationsObj(animations, defaultAnimations.button);
-  const buttonClasses = getButtonClasses(color, hoverColor, size);
+  let buttonAnimations = getAnimationsObject(animations, {}, { initialColor: color, hoverColor });
+  const buttonClasses = getButtonClasses(size);
 
   return (
     <motion.button

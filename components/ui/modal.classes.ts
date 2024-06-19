@@ -1,4 +1,5 @@
 import { ModalColor, ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 export const getModalContainerClasses = (position: ModalPosition): string => {
   const classes = {
@@ -21,13 +22,8 @@ export const getModalContainerClasses = (position: ModalPosition): string => {
   }, ``);
 };
 
-export const getModalClasses = (color: ModalColor, size: ModalSize): string => {
+export const getModalClasses = (size: ModalSize): string => {
   const classes = {
-    color: {
-      [ModalColor.Primary]: "bg-primary",
-      [ModalColor.Secondary]: "bg-secondary",
-      [ModalColor.Tertiary]: "bg-tertiary",
-    },
     size: {
       [ModalSize.ExtraSmall]: "w-48",
       [ModalSize.Small]: "w-96",
@@ -36,5 +32,5 @@ export const getModalClasses = (color: ModalColor, size: ModalSize): string => {
     },
   };
 
-  return `${classes.color[color]} ${classes.size[size]}`;
+  return `${classes.size[size]}`;
 };

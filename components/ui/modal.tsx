@@ -6,17 +6,20 @@ import { useEventListener } from "usehooks-ts";
 import { motion, useIsPresent } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types";
-import { ModalColor, ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
-
 import { getModalClasses, getModalContainerClasses } from "./modal.classes";
+
+import { getAnimationsObject } from "@/utils/animations";
+
+import { ModalProps, ModalHeaderProps } from "@/ts/types/components/modal.types";
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
+
 import defaultAnimations from "./modal.animations";
-import { getAnimationsObj } from "@/utils/common";
 
 const Modal = ({
   position = ModalPosition.TopLeft,
   size = ModalSize.Medium,
-  color = ModalColor.Primary,
+  color = ComponentColor.Primary,
   onCloseModal = () => {},
   hasCloseButton = false,
   preventCloseOnClickOutside = false,
@@ -28,7 +31,11 @@ const Modal = ({
   children,
 }: ModalProps) => {
   const modalBackdropRef = useRef<HTMLDivElement>(null);
-  const modalAnimations = getAnimationsObj(animations, defaultAnimations.modal);
+
+  const modalAnimations = getAnimationsObject(animations, defaultAnimations.modal, {
+    initialColor: color,
+    discardDefault: true,
+  });
 
   const isPresent = useIsPresent();
 
@@ -53,7 +60,7 @@ const Modal = ({
   useEventListener("keyup", onPressKey);
 
   const modalContainerClasses = getModalContainerClasses(position);
-  const modalClasses = getModalClasses(color, size);
+  const modalClasses = getModalClasses(size);
 
   const translationStyles =
     translation != "none" ? { margin: `${translation.y}px ${translation.x}px` } : {};

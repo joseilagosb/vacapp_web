@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 
 import Dropdown from "../ui/dropdown";
-import Button, { TextButton } from "../ui/button";
+import { TextButton } from "../ui/button";
 import Checkbox from "../form/checkbox";
 
-import { PlaceType, Service } from "@/ts/types/graphql/schemas.types";
-import { ModalColor, ModalSize } from "@/ts/enums/components/modal.enums";
-import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
-
-type SortAndFilterProps = {
-  placeTypes: Array<PlaceType>;
-  services: Array<Service>;
-};
+import { ModalSize } from "@/ts/enums/components/modal.enums";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
+import { SortAndFilterProps } from "@/ts/types/components/sort_and_filters.types";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
   const [checkedPlaceTypes, setCheckedPlaceTypes] = useState(
@@ -49,29 +45,29 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
           id="sort"
           title="Ordenar"
           modalSize={ModalSize.ExtraSmall}
-          modalColor={ModalColor.Secondary}
+          modalColor={ComponentColor.Secondary}
         >
           <div className="flex flex-col">
             <TextButton
               size={ButtonSize.Small}
-              color={ButtonColor.Transparent}
-              hoverColor={ButtonColor.Primary}
+              color={ComponentColor.Transparent}
+              hoverColor={ComponentColor.Primary}
               text="Más cerca de mí"
               alignment="left"
               onClick={() => {}}
             />
             <TextButton
               size={ButtonSize.Small}
-              color={ButtonColor.Transparent}
-              hoverColor={ButtonColor.Primary}
+              color={ComponentColor.Transparent}
+              hoverColor={ComponentColor.Primary}
               text="Más visitados"
               alignment="left"
               onClick={() => {}}
             />
             <TextButton
               size={ButtonSize.Small}
-              color={ButtonColor.Transparent}
-              hoverColor={ButtonColor.Primary}
+              color={ComponentColor.Transparent}
+              hoverColor={ComponentColor.Primary}
               text="Más seguros"
               alignment="left"
               onClick={() => {}}
@@ -84,7 +80,7 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
           id="place-types"
           title="Tipo de lugar"
           alignment="right"
-          modalColor={ModalColor.Secondary}
+          modalColor={ComponentColor.Secondary}
         >
           <div className="flex flex-col max-h-[400px] overflow-y-auto tiny-scrollbar">
             {placeTypesArray.map((item, itemIndex) => (
@@ -104,7 +100,7 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
           id="services"
           title="Servicio"
           alignment="right"
-          modalColor={ModalColor.Secondary}
+          modalColor={ComponentColor.Secondary}
         >
           <div className="flex flex-col max-h-[400px] overflow-y-auto tiny-scrollbar">
             {servicesArray.map((item, itemIndex) => (

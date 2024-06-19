@@ -9,21 +9,21 @@ import { useRect } from "@/hooks/use_rect";
 import Modal from "./modal";
 import Button from "./button";
 
-import { ModalColor, ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 
 import { DropdownProps } from "@/ts/types/components/dropdown.types";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 import animations from "./dropdown.animations";
 
 const Dropdown = ({
-  id,
   title,
   modalSize = ModalSize.Small,
-  modalColor = ModalColor.Primary,
+  modalColor = ComponentColor.Primary,
   alignment = "left",
   children,
 }: DropdownProps) => {
-  const dropdownKey = `dropdown-${id}`;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { position: dropdownPosition, size: dropdownSize } = useRect(dropdownRef);
@@ -43,15 +43,13 @@ const Dropdown = ({
   const onCloseDropdownModal = () => setIsDropdownVisible(false);
 
   return (
-    <div key={dropdownKey} ref={dropdownRef} className="relative">
+    <div ref={dropdownRef} className="relative">
       <Button
-        id={`${dropdownKey}-toggle-button`}
+        color={ComponentColor.Secondary}
+        hoverColor={ComponentColor.Tertiary}
+        size={ButtonSize.Small}
         key={`dropdown-button-${isDropdownVisible}`}
         onClick={onClickDropdownButton}
-        className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center border rounded-lg
-        bg-secondary text-gray-500 border-gray-300 
-        focus:ring-2 focus:outline-none focus:ring-primary
-      dark:text-white dark:border-gray-600"
         animations={animations.dropdownButton}
       >
         <span>{title}</span>

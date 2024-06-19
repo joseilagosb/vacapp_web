@@ -6,6 +6,8 @@ import Button from "./button";
 import { TabsProps } from "@/ts/types/components/tabs.types";
 
 import { getTabClassesObj } from "./tabs.classes";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 const Tabs = <T,>({ containerId, currentTab, tabs }: TabsProps<T>) => {
   return (
@@ -22,6 +24,8 @@ const Tabs = <T,>({ containerId, currentTab, tabs }: TabsProps<T>) => {
             ) : (
               <Button
                 onClick={tab.onClick}
+                color={ComponentColor.Transparent}
+                size={ButtonSize.Small}
                 aria-current="page"
                 className={`relative size-full flex justify-center p-4 text-gray-900 dark:text-white ${tabClassesObj.borderRadius} ${tabClassesObj.after}`}
               >

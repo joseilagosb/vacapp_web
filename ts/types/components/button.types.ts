@@ -1,15 +1,16 @@
 import { ReactNode } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
 import { HTMLMotionProps } from "framer-motion";
 import { ComponentAnimations } from "../components.types";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 export type ButtonProps = {
   onClick: () => void;
   size?: ButtonSize;
-  color?: ButtonColor;
-  hoverColor?: ButtonColor;
+  color?: ComponentColor;
+  hoverColor?: ComponentColor;
   children: ReactNode;
   animations?: ComponentAnimations;
 } & HTMLMotionProps<"button">;

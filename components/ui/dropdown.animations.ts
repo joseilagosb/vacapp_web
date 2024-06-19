@@ -1,11 +1,6 @@
 import { AnimationsObject } from "@/ts/types/constants.types";
 
 const animations: AnimationsObject = {
-  dropdownButton: {
-    whileHover: {
-      backgroundColor: "var(--tertiary-color)",
-    },
-  },
   dropdownModal: {
     initial: {
       opacity: 0,

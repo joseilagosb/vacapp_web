@@ -7,4 +7,4 @@ export type MapStyle = { [key in Theme as string]: string };
 
 export type ThemeIcon = { [key in Theme as string]: IconDefinition };
 
-export type AnimationsObject = { [key: string]: MotionProps };
+export type AnimationsObject = Record<string, MotionProps>;

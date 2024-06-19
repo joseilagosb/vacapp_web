@@ -15,7 +15,8 @@ import { useHomeStore } from "@/stores/home/home.hooks";
 import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { LegendModalProps, LegendModalTab } from "@/ts/types/components/legend_modal.types";
 import { Tab } from "@/ts/types/components/tabs.types";
-import { ButtonColor, ButtonSize } from "@/ts/enums/components/button.enums";
+import { ButtonSize } from "@/ts/enums/components/button.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 import animations from "@/components/legend_modal.animations";
 
@@ -95,7 +96,7 @@ const AreasOverview = () => {
               </span>
               <TextButton
                 size={ButtonSize.Small}
-                color={ButtonColor.Secondary}
+                color={ComponentColor.Secondary}
                 onClick={() => setOnlyShowingOpenPlaces(false)}
                 text="Mostrar todo"
               />
@@ -115,14 +116,14 @@ const AreasOverview = () => {
               <Button
                 size={ButtonSize.Small}
                 onClick={() => moveCameraToArea(area)}
-                color={ButtonColor.Secondary}
+                color={ComponentColor.Secondary}
               >
                 <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4" />
               </Button>
               <Button
                 size={ButtonSize.Small}
                 onClick={() => router.push(`/areas/${area.id}`)}
-                color={ButtonColor.Secondary}
+                color={ComponentColor.Secondary}
               >
                 <FontAwesomeIcon icon={faExternalLink} className="w-4 h-4" />
               </Button>

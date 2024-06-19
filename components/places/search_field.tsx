@@ -15,10 +15,11 @@ const SearchField = ({ inputValue, onChangeInput, onClickClearInput }: FiltersFo
         type="search"
         onChange={onChangeInput}
         id="filter-field"
-        className="block w-full p-4 ps-14 text-2xl rounded-lg border
-          text-gray-900 placeholder-gray-500 border-gray-300 bg-secondary 
+        className="block w-full p-4 ps-14 text-2xl rounded-lg
+          text-gray-900 placeholder-gray-500 bg-secondary
           dark:border-gray-600 dark:placeholder-gray-300 dark:text-white
-          focus:ring-primary focus:border-primary focus:outline-primary
+          focus:ring-primary focus:outline focus:outline-2 focus:outline-primary
+          dark:focus:outline-gray-300
           search-cancel:appearance-none"
         placeholder="Busca lugares por su nombre..."
         autoComplete="off"

@@ -5,12 +5,17 @@ import { faFaceFrown } from "@fortawesome/free-solid-svg-icons";
 import { TextButton } from "./ui/button";
 import Modal from "./ui/modal";
 
-import { ModalSize } from "@/ts/enums/components/modal.enums";
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
 import { NoPlacesFoundModalProps } from "@/ts/types/components/no_places_found_modal.types";
 
 const NoPlacesFoundModal = ({ onClickRestore }: NoPlacesFoundModalProps) => {
   return (
-    <Modal size={ModalSize.Small} preventCloseOnClickOutside withPaddingInBody={false}>
+    <Modal
+      size={ModalSize.Small}
+      position={ModalPosition.Center}
+      preventCloseOnClickOutside
+      withPaddingInBody={false}
+    >
       <div className="flex flex-col items-center justify-center gap-2 bg-secondary p-8">
         <div
           className="size-8 flex items-center justify-center relative

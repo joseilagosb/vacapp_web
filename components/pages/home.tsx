@@ -17,7 +17,7 @@ import LegendModal from "../legend_modal";
 import { useHomeStore } from "@/stores/home/home.hooks";
 
 import { PlaceFilterType } from "@/ts/enums/stores.types";
-import { ButtonColor } from "@/ts/enums/components/button.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 import animations from "./home.animations";
 
@@ -42,7 +42,8 @@ const HomePage = () => {
       case PlaceFilterType.Services:
         return (
           <IconButton
-            color={ButtonColor.Alert}
+            key="restore-filters-button"
+            color={ComponentColor.Alert}
             onClick={() => restoreFilters()}
             icon={faTimes}
             text="Restaurar"
@@ -53,6 +54,7 @@ const HomePage = () => {
       default:
         return (
           <IconButton
+            key="filter-by-button"
             onClick={() => setIsFilterByModalVisible(true)}
             icon={faFilter}
             text="Filtrar"

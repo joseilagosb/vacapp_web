@@ -3,7 +3,8 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { ComponentAnimations } from "../components.types";
 
-import { ModalColor, ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { ModalPosition, ModalSize } from "@/ts/enums/components/modal.enums";
+import { ComponentColor } from "@/ts/enums/constants.enums";
 
 export type ModalHeaderProps = {
   title: string;
@@ -18,7 +19,7 @@ export type ModalTranslationProps = {
 
 export type ModalProps = {
   position?: ModalPosition;
-  color?: ModalColor;
+  color?: ComponentColor;
   size?: ModalSize;
   onCloseModal?: () => void;
   hasCloseButton?: boolean;

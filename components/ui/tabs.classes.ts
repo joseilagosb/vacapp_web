@@ -8,7 +8,7 @@ export const getTabClassesObj = (
     // Separador entre pestañas
     after:
       tabIndex < numberOfTabs - 1
-        ? "after:absolute after:right-0 after:top-[10px] after:bottom-[10px] after:content-[''] after:w-px after:bg-primary"
+        ? "after:absolute after:right-0 after:top-[10px] after:bottom-[10px] after:content-[''] after:w-px after:bg-tertiary"
         : "",
   };
 };

@@ -39,3 +39,11 @@ export const deepMerge = (target: any, ...sources: any[]): any => {
   }
   return deepMerge(target, ...sources);
 };
+
+export const getCurrentRect = (element: HTMLElement) => {
+  if (!element) {
+    return { bottom: 0, left: 0, right: 0, top: 0, width: 0, height: 0 };
+  }
+
+  return element.getBoundingClientRect();
+};

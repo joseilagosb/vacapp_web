@@ -4,16 +4,19 @@ import { useEventListener, useWindowSize } from "usehooks-ts";
 import { useScrollParent } from "./use_scroll_parent";
 
 import { Rect } from "@/ts/types/utils.types";
+import { getCurrentRect } from "@/utils/common";
 
 // Retorna la ubicación y el tamaño de un elemento en el DOM
 // Los valores se actualizan automáticamente al redimensionar la pantalla o al scrollear la página
+
+// Advertencia: se recomienda usar este hook en un número reducido de componentes ya que los renderiza cada vez que cambia la posición del scroll, perjudicando el rendimiento general de la aplicación.
 export const useRect = (element: RefObject<HTMLElement>) => {
   const [rect, setRect] = useState<Rect>({});
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   const updateRect = () => {
     if (element && element.current) {
-      const { top, left, width, height } = element.current.getBoundingClientRect();
+      const { top, left, width, height } = getCurrentRect(element.current);
       setRect({ top, left, right: windowWidth - left, bottom: windowHeight - top, width, height });
     }
   };

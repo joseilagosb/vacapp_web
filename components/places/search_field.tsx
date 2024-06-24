@@ -1,8 +1,12 @@
 import React from "react";
 
+import { motion } from "framer-motion";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FiltersFormProps } from "@/ts/types/components/filters_form.types";
+
+import animations from "./search_field.animations";
 
 const SearchField = ({ inputValue, onChangeInput, onClickClearInput }: FiltersFormProps) => {
   return (
@@ -10,20 +14,21 @@ const SearchField = ({ inputValue, onChangeInput, onClickClearInput }: FiltersFo
       <div className="absolute inset-y-0 start-0 flex items-center ps-5 pointer-events-none">
         <FontAwesomeIcon icon={faSearch} className="text-2xl text-gray-500 dark:text-gray-300" />
       </div>
-      <input
+      <motion.input
         value={inputValue}
         type="search"
         onChange={onChangeInput}
         id="filter-field"
-        className="block w-full p-4 ps-14 text-2xl rounded-lg
+        className="block w-full p-4 ps-14 text-2xl rounded-lg ring-0
           text-gray-900 placeholder-gray-500 bg-secondary
           dark:border-gray-600 dark:placeholder-gray-300 dark:text-white
-          focus:ring-primary focus:outline focus:outline-2 focus:outline-primary
+          focus:outline focus:outline-2 focus:outline-primary
           dark:focus:outline-gray-300
           search-cancel:appearance-none"
         placeholder="Busca lugares por su nombre..."
         autoComplete="off"
         required
+        {...animations.searchField}
       />
       {inputValue && (
         <div

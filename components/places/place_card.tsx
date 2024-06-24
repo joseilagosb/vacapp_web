@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation.js";
 import { motion } from "framer-motion";
@@ -10,11 +10,18 @@ import animations from "./place_card.animations";
 
 import { PlaceCardProps } from "@/ts/types/components/place_card.types";
 
+import { useRippleAnimation } from "@/hooks/use_ripple_animation";
+
 const PlaceCard = ({ place }: PlaceCardProps) => {
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useRippleAnimation(cardRef);
+
   return (
     <motion.article
       key={place.id}
+      ref={cardRef}
       className="relative rounded-md shadow-lg hover:shadow-sm overflow-hidden bg-primary cursor-pointer select-none h-60"
       onClick={() => router.push(`/places/${place.id}`)}
       {...animations.placeCard}

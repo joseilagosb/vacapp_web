@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useShallow } from "zustand/react/shallow";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

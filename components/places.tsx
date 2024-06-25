@@ -4,7 +4,7 @@ import { useHomeStore } from "@/stores/home/home.hooks";
 import React from "react";
 import { useShallow } from "zustand/react/shallow";
 import Button from "./ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 const Places = () => {
   const router = useRouter();

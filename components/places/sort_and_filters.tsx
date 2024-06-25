@@ -35,9 +35,6 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
     setCheckedServices(newCheckedServices);
   };
 
-  const placeTypesArray = placeTypes.map((placeType) => placeType.place_type_name!);
-  const servicesArray = services.map((service) => service.service_name!);
-
   return (
     <div className="w-full flex flex-row justify-between">
       <div>
@@ -83,12 +80,13 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
           modalColor={ComponentColor.Secondary}
         >
           <div className="flex flex-col max-h-[400px] overflow-y-auto tiny-scrollbar">
-            {placeTypesArray.map((item, itemIndex) => (
+            {placeTypes.map((placeType) => (
               <Checkbox
-                name={`place-types-modal-${itemIndex}`}
-                label={item}
-                checked={checkedPlaceTypes[itemIndex]}
-                onChange={() => onCheckedPlaceType(itemIndex)}
+                key={`place-types-modal-${placeType.id}`}
+                name={`place-types-modal-${placeType.id}`}
+                label={placeType.place_type_name!}
+                checked={checkedPlaceTypes[+placeType.id]}
+                onChange={() => onCheckedPlaceType(+placeType.id)}
               />
             ))}
           </div>
@@ -103,12 +101,13 @@ const SortAndFilters = ({ placeTypes, services }: SortAndFilterProps) => {
           modalColor={ComponentColor.Secondary}
         >
           <div className="flex flex-col max-h-[400px] overflow-y-auto tiny-scrollbar">
-            {servicesArray.map((item, itemIndex) => (
+            {services.map((service) => (
               <Checkbox
-                name={`services-modal-${itemIndex}`}
-                label={item}
-                checked={checkedServices[itemIndex]}
-                onChange={() => onCheckedService(itemIndex)}
+                key={`services-modal-${service.id}`}
+                name={`services-modal-${service.id}`}
+                label={service.service_name!}
+                checked={checkedServices[+service.id]}
+                onChange={() => onCheckedService(+service.id)}
               />
             ))}
           </div>

@@ -1,16 +1,17 @@
 import React, { useRef } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation.js";
 import { motion } from "framer-motion";
+
+import { useRouter } from "next-nprogress-bar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
+import { useRippleAnimation } from "@/hooks/use_ripple_animation";
+
 import animations from "./place_card.animations";
 
 import { PlaceCardProps } from "@/ts/types/components/place_card.types";
-
-import { useRippleAnimation } from "@/hooks/use_ripple_animation";
 
 const PlaceCard = ({ place }: PlaceCardProps) => {
   const router = useRouter();

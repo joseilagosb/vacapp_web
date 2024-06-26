@@ -1,21 +1,35 @@
-import React from "react";
-
+import React, { ChangeEvent } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { motion } from "framer-motion";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FiltersFormProps } from "@/ts/types/components/filters_form.types";
+
+import { usePlacesIndexStore } from "@/stores/places_index/places_index.hooks";
 
 import animations from "./search_field.animations";
 
-const SearchField = ({ inputValue, onChangeInput, onClickClearInput }: FiltersFormProps) => {
+const SearchField = () => {
+  const { filterValue, updateFilterValue, clearFilterValue } = usePlacesIndexStore(
+    useShallow((state) => ({
+      filterValue: state.filterValue,
+      updateFilterValue: state.updateFilterValue,
+      clearFilterValue: state.clearFilterValue,
+    }))
+  );
+
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    updateFilterValue(event.target.value);
+  };
+  const onClickClearInput = () => clearFilterValue();
+
   return (
     <div className="max-w-3xl relative mx-auto">
       <div className="absolute inset-y-0 start-0 flex items-center ps-5 pointer-events-none">
         <FontAwesomeIcon icon={faSearch} className="text-2xl text-gray-500 dark:text-gray-300" />
       </div>
       <motion.input
-        value={inputValue}
+        value={filterValue}
         type="search"
         onChange={onChangeInput}
         id="filter-field"
@@ -30,7 +44,7 @@ const SearchField = ({ inputValue, onChangeInput, onClickClearInput }: FiltersFo
         required
         {...animations.searchField}
       />
-      {inputValue && (
+      {filterValue && (
         <div
           onClick={onClickClearInput}
           className="absolute inset-y-0 end-0 flex items-center pe-5"

@@ -8,6 +8,12 @@ export const PlacesIndexDocument = gql`
       id
       place_name
       place_short_name
+      place_type {
+        id
+      }
+      services {
+        id
+      }
       place_working_days {
         __typename
         id

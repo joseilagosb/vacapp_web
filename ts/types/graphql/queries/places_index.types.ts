@@ -9,6 +9,8 @@ export type PlacesIndexQuery = {
     id: string;
     place_name?: string | null;
     place_short_name?: string | null;
+    place_type?: { __typename?: "PlaceType"; id: string } | null;
+    services?: Array<{ __typename?: "Service"; id: string } | null> | null;
     place_working_days?: Array<{
       __typename?: "PlaceWorkingDay";
       id: string;

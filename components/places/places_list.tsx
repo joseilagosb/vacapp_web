@@ -1,17 +1,42 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useShallow } from "zustand/react/shallow";
+
+import { usePlacesIndexStore } from "@/stores/places_index/places_index.hooks";
 
 import PlaceCard from "./place_card";
 
 import animations from "./places_list.animations";
-import { PlacesListProps } from "@/ts/types/components/places_list.types";
 
-const PlacesList = ({ places, currentFilter }: PlacesListProps) => {
-  const filteredPlaces = places.filter(
-    (place) =>
-      place.place_name?.toLowerCase().includes(currentFilter) ||
-      place.place_short_name?.toLowerCase().includes(currentFilter)
+const PlacesList = () => {
+  const { places, filterValue, checkedPlaceTypes, checkedServices } = usePlacesIndexStore(
+    useShallow((state) => ({
+      places: state.places,
+      filterValue: state.filterValue,
+      checkedPlaceTypes: state.checkedPlaceTypes,
+      checkedServices: state.checkedServices,
+    }))
   );
+
+  let filteredPlaces = places.filter(
+    (place) =>
+      place.place_name.toLowerCase().includes(filterValue) ||
+      place.place_short_name.toLowerCase().includes(filterValue)
+  );
+
+  filteredPlaces = filteredPlaces.filter((place) => {
+    if (checkedPlaceTypes.length > 0 && !checkedPlaceTypes.includes(+place.place_type.id)) {
+      return false;
+    }
+
+    if (checkedServices.length === 0) {
+      return true;
+    }
+
+    return checkedServices.some((checkedService) =>
+      place.services.map((service) => +service.id).includes(checkedService)
+    );
+  });
 
   if (filteredPlaces.length === 0) {
     return "No hay lugares...";

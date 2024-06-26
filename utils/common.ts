@@ -47,3 +47,11 @@ export const getCurrentRect = (element: HTMLElement) => {
 
   return element.getBoundingClientRect();
 };
+
+export const addItemToArray = <T>(array: Array<T>, item: T): Array<T> => {
+  return array.includes(item) ? [...array] : [...array, item];
+};
+
+export const toggleItemInArray = <T>(array: Array<T>, item: T): Array<T> => {
+  return array.includes(item) ? array.filter((f) => f !== item) : [...array, item];
+};

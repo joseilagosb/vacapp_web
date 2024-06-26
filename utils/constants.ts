@@ -1,8 +1,9 @@
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 
 import { Theme } from "@/ts/enums/constants.enums";
-import { MapStyle, ThemeIcon } from "@/ts/types/constants.types";
+import { MapStyle, SortPlacesByLabel, ThemeIcon } from "@/ts/types/constants.types";
 import { LatLng } from "@/ts/types/models.types";
+import { SortPlacesBy } from "@/ts/enums/components/places_index.enums";
 
 export const MapStyles: MapStyle = {
   [Theme.Light]: "mapbox://styles/joseilagosb/clv5vf5s602q701nrgkjp74kc",
@@ -17,4 +18,11 @@ export const ThemeIcons: ThemeIcon = {
 export const DefaultCameraPosition: LatLng = {
   latitude: -40.587824,
   longitude: -73.103046,
+};
+
+export const SortPlacesByLabels: SortPlacesByLabel = {
+  [SortPlacesBy.Default]: "Por defecto",
+  [SortPlacesBy.MostVisited]: "Más visitados",
+  [SortPlacesBy.Nearby]: "Más cerca de mí",
+  [SortPlacesBy.Safest]: "Más seguros",
 };

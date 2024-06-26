@@ -10,6 +10,8 @@ import Checkbox from "../form/checkbox";
 import { ModalSize } from "@/ts/enums/components/modal.enums";
 import { ButtonSize } from "@/ts/enums/components/button.enums";
 import { ComponentColor } from "@/ts/enums/constants.enums";
+import { SortPlacesBy } from "@/ts/enums/components/places_index.enums";
+import { SortPlacesByLabels } from "@/utils/constants";
 
 const SortAndFilters = () => {
   const {
@@ -21,6 +23,7 @@ const SortAndFilters = () => {
     toggleService,
     clearPlaceTypes,
     clearServices,
+    updateSortBy,
   } = usePlacesIndexStore(
     useShallow((state) => ({
       placeTypes: state.placeTypes,
@@ -31,6 +34,7 @@ const SortAndFilters = () => {
       toggleService: state.toggleService,
       clearPlaceTypes: state.clearPlaceTypes,
       clearServices: state.clearServices,
+      updateSortBy: state.updateSortBy,
     }))
   );
 
@@ -50,25 +54,25 @@ const SortAndFilters = () => {
             size={ButtonSize.Small}
             color={ComponentColor.Transparent}
             hoverColor={ComponentColor.Primary}
-            text="Más cerca de mí"
+            text={SortPlacesByLabels[SortPlacesBy.Nearby]}
             alignment="left"
-            onClick={() => {}}
+            onClick={() => updateSortBy(SortPlacesBy.Nearby)}
           />
           <TextButton
             size={ButtonSize.Small}
             color={ComponentColor.Transparent}
             hoverColor={ComponentColor.Primary}
-            text="Más visitados"
+            text={SortPlacesByLabels[SortPlacesBy.MostVisited]}
             alignment="left"
-            onClick={() => {}}
+            onClick={() => updateSortBy(SortPlacesBy.MostVisited)}
           />
           <TextButton
             size={ButtonSize.Small}
             color={ComponentColor.Transparent}
             hoverColor={ComponentColor.Primary}
-            text="Más seguros"
+            text={SortPlacesByLabels[SortPlacesBy.Safest]}
             alignment="left"
-            onClick={() => {}}
+            onClick={() => updateSortBy(SortPlacesBy.Safest)}
           />
         </div>
       </Dropdown>

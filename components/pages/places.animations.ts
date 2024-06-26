@@ -4,11 +4,17 @@ const animations: AnimationsObject = {
   placesListContainer: {
     variants: {
       default: {
-        y: "-60px",
+        y: "-72px",
       },
       filterApplied: {
         y: 0,
       },
+    },
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 260,
+      damping: 20,
     },
   },
 };

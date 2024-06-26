@@ -1,13 +1,17 @@
 import React from "react";
 import { useShallow } from "zustand/react/shallow";
 
+import { faSearch, faSort } from "@fortawesome/free-solid-svg-icons";
+
 import { usePlacesIndexStore } from "@/stores/places_index/places_index.hooks";
 
 import Button from "../ui/button";
+import FilterBubble from "./filter_bubble";
+
 import { ButtonSize } from "@/ts/enums/components/button.enums";
 import { ComponentColor } from "@/ts/enums/constants.enums";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { SortPlacesBy } from "@/ts/enums/components/places_index.enums";
+import { SortPlacesByLabels } from "@/utils/constants";
 
 const AppliedFilters = () => {
   const {
@@ -16,9 +20,12 @@ const AppliedFilters = () => {
     checkedPlaceTypes,
     checkedServices,
     filterValue,
+    clearFilterValue,
     togglePlaceType,
     toggleService,
     clearAllFilters,
+    sortBy,
+    clearSortBy,
   } = usePlacesIndexStore(
     useShallow((state) => ({
       placeTypes: state.placeTypes,
@@ -26,9 +33,13 @@ const AppliedFilters = () => {
       checkedPlaceTypes: state.checkedPlaceTypes,
       checkedServices: state.checkedServices,
       filterValue: state.filterValue,
+      clearFilterValue: state.clearFilterValue,
       togglePlaceType: state.togglePlaceType,
       toggleService: state.toggleService,
       clearAllFilters: state.clearAllFilters,
+      sortBy: state.sortBy,
+      updateSortBy: state.updateSortBy,
+      clearSortBy: state.clearSortBy,
     }))
   );
 
@@ -42,37 +53,52 @@ const AppliedFilters = () => {
 
   return (
     <div className="w-full min-h-[60px] bg-tertiary mt-3 px-8 py-3 flex flex-row justify-between">
-      <div className="flex flex-wrap gap-1">
-        {checkedPlaceTypes.map((checkedPlaceType, checkedPlaceTypeIndex) => {
-          const placeTypeName = checkedPlaceTypeNames[checkedPlaceTypeIndex];
-          return (
-            <div className="rounded-lg bg-secondary p-2 flex items-center self-center gap-2">
-              <span className="text-sm">{placeTypeName || ""}</span>
-              <FontAwesomeIcon
-                icon={faTimes}
-                className="cursor-pointer"
-                onClick={() => togglePlaceType(checkedPlaceType)}
-              />
+      <div className="flex flex-col gap-3">
+        {(filterValue != "" || sortBy !== SortPlacesBy.Default) && (
+          <div className="flex flex-row">
+            <span className="text-xs uppercase tracking-wide w-[80px] pt-2 pr-3 text-right">Filtros</span>
+            <div className="flex flex-wrap gap-1">
+              {filterValue !== "" && (
+                <FilterBubble item={filterValue} icon={faSearch} onClick={clearFilterValue} />
+              )}
+              {sortBy !== SortPlacesBy.Default && (
+                <FilterBubble item={SortPlacesByLabels[sortBy]} icon={faSort} onClick={clearSortBy} />
+              )}
             </div>
-          );
-        })}
-        {checkedServices.map((checkedService, checkedServiceIndex) => {
-          const serviceName = checkedServiceNames[checkedServiceIndex];
-          return (
-            <div className="rounded-lg bg-secondary px-2 flex items-center gap-2">
-              <span className="text-sm">{serviceName || ""}</span>
-              <FontAwesomeIcon
-                icon={faTimes}
-                className="cursor-pointer"
-                onClick={() => toggleService(checkedService)}
-              />
+          </div>
+        )}
+        {checkedPlaceTypes.length > 0 && (
+          <div className="flex flex-row">
+            <span className="text-xs uppercase tracking-wide w-[80px] pt-2 pr-3 text-right">Tipo</span>
+            <div className="flex flex-wrap gap-1">
+              {checkedPlaceTypes.map((checkedPlaceType, checkedPlaceTypeIndex) => (
+                <FilterBubble
+                  item={checkedPlaceTypeNames[checkedPlaceTypeIndex]!}
+                  onClick={() => togglePlaceType(checkedPlaceType)}
+                />
+              ))}
             </div>
-          );
-        })}
+          </div>
+        )}
+        {checkedServices.length > 0 && (
+          <div className="flex flex-row">
+            <span className="text-xs uppercase tracking-wide w-[80px] pt-2 pr-3 text-right">Servicio</span>
+            <div className="flex flex-wrap gap-1">
+              {checkedServices.map((checkedService, checkedServiceIndex) => (
+                <FilterBubble
+                  item={checkedServiceNames[checkedServiceIndex]!}
+                  onClick={() => toggleService(checkedService)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-      <Button onClick={clearAllFilters} size={ButtonSize.Small} color={ComponentColor.Alert}>
-        Limpiar filtros
-      </Button>
+      <div className="w-1/6 min-w-[120px] text-right">
+        <Button onClick={clearAllFilters} size={ButtonSize.Small} color={ComponentColor.Alert}>
+          Limpiar filtros
+        </Button>
+      </div>
     </div>
   );
 };

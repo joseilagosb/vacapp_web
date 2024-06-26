@@ -1,3 +1,4 @@
+import { SortPlacesBy } from "@/ts/enums/components/places_index.enums";
 import { PlacesIndexQuery } from "@/ts/types/graphql/queries/places_index.types";
 import { Place, PlaceType, Service } from "@/ts/types/models.types";
 import { PlacesIndexState } from "@/ts/types/stores/places_index.types";
@@ -13,5 +14,6 @@ export const initPlacesIndexStore = (data: PlacesIndexQuery): PlacesIndexState =
     filterValue: "",
     checkedPlaceTypes: [],
     checkedServices: [],
+    sortBy: SortPlacesBy.Default,
   };
 };

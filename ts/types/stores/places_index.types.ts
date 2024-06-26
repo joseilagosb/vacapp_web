@@ -1,3 +1,4 @@
+import { SortPlacesBy } from "@/ts/enums/components/places_index.enums";
 import { Place, PlaceType, Service } from "../models.types";
 
 export type PlacesIndexState = {
@@ -7,6 +8,7 @@ export type PlacesIndexState = {
   filterValue: string;
   checkedPlaceTypes: Array<number>;
   checkedServices: Array<number>;
+  sortBy: SortPlacesBy;
 };
 
 export type PlacesIndexActions = {
@@ -17,6 +19,8 @@ export type PlacesIndexActions = {
   clearPlaceTypes: () => void;
   clearServices: () => void;
   clearAllFilters: () => void;
+  updateSortBy: (sort: SortPlacesBy) => void;
+  clearSortBy: () => void;
 };
 
 export type PlacesIndexStore = PlacesIndexState & PlacesIndexActions;

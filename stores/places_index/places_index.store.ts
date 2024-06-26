@@ -16,7 +16,7 @@ export const initialPlacesIndexState: PlacesIndexState = {
 export const createPlacesIndexStore = (
   initialState: PlacesIndexState = initialPlacesIndexState
 ) => {
-  return createStore<PlacesIndexStore>()((set) => ({
+  return createStore<PlacesIndexStore>()((set, get) => ({
     ...initialState,
     updateFilterValue: (newFilterValue) => set({ filterValue: newFilterValue }),
     clearFilterValue: () => set({ filterValue: "" }),
@@ -30,5 +30,10 @@ export const createPlacesIndexStore = (
       })),
     clearPlaceTypes: () => set({ checkedPlaceTypes: [] }),
     clearServices: () => set({ checkedServices: [] }),
+    clearAllFilters: () => {
+      get().clearPlaceTypes();
+      get().clearServices();
+      get().clearFilterValue();
+    }
   }));
 };

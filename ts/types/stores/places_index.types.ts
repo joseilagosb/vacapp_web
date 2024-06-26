@@ -16,6 +16,7 @@ export type PlacesIndexActions = {
   toggleService: (service: number) => void;
   clearPlaceTypes: () => void;
   clearServices: () => void;
+  clearAllFilters: () => void;
 };
 
 export type PlacesIndexStore = PlacesIndexState & PlacesIndexActions;

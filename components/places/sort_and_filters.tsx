@@ -49,32 +49,43 @@ const SortAndFilters = () => {
         modalSize={ModalSize.ExtraSmall}
         modalColor={ComponentColor.Secondary}
       >
-        <div className="flex flex-col">
-          <TextButton
-            size={ButtonSize.Small}
-            color={ComponentColor.Transparent}
-            hoverColor={ComponentColor.Primary}
-            text={SortPlacesByLabels[SortPlacesBy.Nearby]}
-            alignment="left"
-            onClick={() => updateSortBy(SortPlacesBy.Nearby)}
-          />
-          <TextButton
-            size={ButtonSize.Small}
-            color={ComponentColor.Transparent}
-            hoverColor={ComponentColor.Primary}
-            text={SortPlacesByLabels[SortPlacesBy.MostVisited]}
-            alignment="left"
-            onClick={() => updateSortBy(SortPlacesBy.MostVisited)}
-          />
-          <TextButton
-            size={ButtonSize.Small}
-            color={ComponentColor.Transparent}
-            hoverColor={ComponentColor.Primary}
-            text={SortPlacesByLabels[SortPlacesBy.Safest]}
-            alignment="left"
-            onClick={() => updateSortBy(SortPlacesBy.Safest)}
-          />
-        </div>
+        {(closeDropdownModal) => (
+          <div className="flex flex-col">
+            <TextButton
+              size={ButtonSize.Small}
+              color={ComponentColor.Transparent}
+              hoverColor={ComponentColor.Primary}
+              text={SortPlacesByLabels[SortPlacesBy.Nearby]}
+              alignment="left"
+              onClick={() => {
+                updateSortBy(SortPlacesBy.Nearby);
+                closeDropdownModal();
+              }}
+            />
+            <TextButton
+              size={ButtonSize.Small}
+              color={ComponentColor.Transparent}
+              hoverColor={ComponentColor.Primary}
+              text={SortPlacesByLabels[SortPlacesBy.MostVisited]}
+              alignment="left"
+              onClick={() => {
+                updateSortBy(SortPlacesBy.MostVisited);
+                closeDropdownModal();
+              }}
+            />
+            <TextButton
+              size={ButtonSize.Small}
+              color={ComponentColor.Transparent}
+              hoverColor={ComponentColor.Primary}
+              text={SortPlacesByLabels[SortPlacesBy.Safest]}
+              alignment="left"
+              onClick={() => {
+                updateSortBy(SortPlacesBy.Safest);
+                closeDropdownModal();
+              }}
+            />
+          </div>
+        )}
       </Dropdown>
       <div className="flex flex-row gap-2">
         <Dropdown

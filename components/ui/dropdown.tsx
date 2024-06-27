@@ -40,7 +40,7 @@ const Dropdown = ({
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const onClickDropdownButton = () => setIsDropdownVisible(true);
-  const onCloseDropdownModal = () => setIsDropdownVisible(false);
+  const closeDropdownModal = () => setIsDropdownVisible(false);
 
   return (
     <div ref={dropdownRef} className="relative">
@@ -62,11 +62,11 @@ const Dropdown = ({
             size={modalSize}
             color={modalColor}
             transparentBackdrop
-            onCloseModal={onCloseDropdownModal}
+            onCloseModal={closeDropdownModal}
             translation={dropdownModalPosition}
             animations={animations.dropdownModal}
           >
-            {children}
+            {typeof children === "function" ? children(closeDropdownModal) : children}
           </Modal>
         )}
       </AnimatePresence>

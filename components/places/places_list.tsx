@@ -39,7 +39,16 @@ const PlacesList = () => {
   });
 
   if (filteredPlaces.length === 0) {
-    return "No hay lugares...";
+    return (
+      <div className="w-full p-8 text-center">
+        <h2 className="text-6xl leading-normal font-light">
+          No se hallaron lugares dentro de la ciudad.
+        </h2>
+        <p className="text-2xl font-extralight">
+          Elimina algunos de los criterios de búsqueda ingresados e intenta otra vez.
+        </p>
+      </div>
+    );
   }
 
   return (

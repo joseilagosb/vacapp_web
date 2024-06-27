@@ -11,5 +11,5 @@ export type DropdownProps = {
   modalSize?: ModalSize;
   modalColor?: ComponentColor;
   alignment?: DropdownAlignment;
-  children: ReactNode;
+  children: ReactNode | ((closeDropdownModal: () => void) => ReactNode);
 };

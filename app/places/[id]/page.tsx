@@ -10,8 +10,10 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <PlaceStoreProvider data={place}>
-      <PlacePage />
-    </PlaceStoreProvider>
+    <main className="h-[calc(100vh-64px)]">
+      <PlaceStoreProvider data={place}>
+        <PlacePage />
+      </PlaceStoreProvider>
+    </main>
   );
 }

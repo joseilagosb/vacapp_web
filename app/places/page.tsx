@@ -4,7 +4,7 @@ import { getUrqlClient } from "@/services/urql";
 import PlacesPage from "@/components/pages/places";
 
 import { placesIndexQuery } from "@/graphql/places_index/places_index";
-import { PlacesIndexStoreProvider } from "@/providers/places_index_provider";
+import { PlacesIndexStoreProvider } from "@/providers/places_index_store_provider";
 
 export const { getClient } = registerUrql(getUrqlClient);
 

@@ -41,7 +41,7 @@ export type Place = {
   place_type: PlaceType;
   services: Array<Service>;
   indicators: Array<Indicator>;
-  working_days: Array<PlaceWorkingDay>;
+  place_working_days: Array<PlaceWorkingDay>;
 };
 
 export type Area = {

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useStore } from "zustand";
 
-import { PlacesIndexStoreContext } from "@/providers/places_index_provider";
+import { PlacesIndexStoreContext } from "@/providers/places_index_store_provider";
 
 import { PlacesIndexStore } from "@/ts/types/stores/places_index.types";
 

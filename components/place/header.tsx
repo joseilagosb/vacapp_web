@@ -28,7 +28,7 @@ const PlaceHeader = () => {
   const { theme } = useTheme();
 
   return (
-    <motion.div className="w-full h-[350px] relative select-none" {...animations.header}>
+    <motion.div className="w-full h-2/5 relative select-none" {...animations.header}>
       <Image
         src={`http://vacapp-backend:3000/images/places/${place.id}.png`}
         alt={place.place_short_name}
@@ -41,9 +41,8 @@ const PlaceHeader = () => {
         className="absolute top-0 left-0 bottom-0 right-0 bg-gradient-to-b bg-opacity-30"
         style={
           {
-            "--tw-gradient-stops": `transparent 50%, ${
-              theme === Theme.Light ? "white" : "black"
-            } 90%`,
+            "--tw-gradient-stops": `transparent 40%, ${theme === Theme.Light ? "white" : "black"
+              } 80%`,
           } as CSSProperties
         }
       />
@@ -52,7 +51,7 @@ const PlaceHeader = () => {
           icon={faMap}
           size={ButtonSize.Small}
           text="Ver en Maps"
-          onClick={() => {}}
+          onClick={() => { }}
           animations={animations.mapsButton}
         />
       </Link>
